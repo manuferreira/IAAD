@@ -63,8 +63,28 @@ def tabela_aeroporto():
         add_nome.delete(0, END)
         add_cidade.delete(0, END)
         add_estado.delete(0, END)
+    
+    def mostrar_reserva():
+        passagem = Tk()
+        passagem.title("Passagens Reservadas")
+        passagem.geometry("700x350")
+
+        lista_reservas = Listbox(passagem,height=8, width=80)
+        lista_reservas.grid(row=1, column=0, columnspan=20, rowspan=5, pady=20, padx=20)
         
 
+        def populate_list_reservas():
+            lista_reservas.delete(0, END)
+            passagens = mydb.mostrar_passagens()
+            for linha in passagens:
+                lista_reservas.insert(END, linha)
+                
+    
+        populate_list_reservas()
+        
+        #quit_button = Button(lista_reservas, text="Quit", command=root.destroy).pack()
+        
+        
     #botões pra tela aeroporto:
     adicionar_aeroporto = Button(aeroporto, text="Adicionar aeroporto", command=add_aeroporto)
     adicionar_aeroporto.grid(row=8, column=0, padx=10, pady=10)
@@ -77,6 +97,9 @@ def tabela_aeroporto():
 
     limpar_campo_aeroporto = Button(aeroporto, text="Limpar campos", command=limpar_aeroporto)
     limpar_campo_aeroporto.grid(row=8, column=3, padx=10, pady=10)
+
+    reserva = Button(aeroporto, text="Passagens reservadas", command=mostrar_reserva)
+    reserva.grid(row=31, column=0, padx=10, pady=10)    
 
 
     #caixas de texto:
