@@ -6,7 +6,7 @@ class Database:
     def __init__(self): #conexão com o banco de dados
         self.db = mysql.connector.connect(host = "localhost", 
                                             user = "root",
-                                            passwd = "manussa1",
+                                            passwd = "H@lldaur2100",
                                             database = "companhia_aerea",)
         self.my_cursor = self.db.cursor()
 
@@ -14,6 +14,15 @@ class Database:
     # métodos referentes a tabela aeroporto
     def mostrar_aeroportos(self):
         self.my_cursor.execute("SELECT * FROM aeroporto")
+        linhas = self.my_cursor.fetchall()
+        return linhas
+    
+    def mostrar_passagens(self):
+        self.my_cursor.execute("""SELECT Nome_cliente, Dia_da_semana, Companhia_aerea, Horario_partida, Horario_chegada, Numero_assento, Nome, Codigo_aeroporto_chegada 
+        FROM reserva_assento  
+        left join  voo on reserva_assento.Numero_voo = voo.Numero_voo
+        left join instancia_trecho on reserva_assento.Numero_trecho = instancia_trecho.Numero_trecho
+        inner join aeroporto on Codigo_aeroporto_partida = Codigo_aeroporto;""")
         linhas = self.my_cursor.fetchall()
         return linhas
 
