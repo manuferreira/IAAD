@@ -6,7 +6,7 @@ class Database:
     def __init__(self): #conexão com o banco de dados
         self.db = mysql.connector.connect(host = "localhost", 
                                             user = "root",
-                                            passwd = "manussa1",
+                                            passwd = "",
                                             database = "companhia_aerea",)
         self.my_cursor = self.db.cursor()
 
@@ -59,7 +59,9 @@ class Database:
     def atualizar_voo(self, Numero_voo, Companhia_aerea, Dia_da_semana):
         self.my_cursor.execute("UPDATE voo SET Companhia_aerea=%s, Dia_da_semana=%s WHERE Numero_voo=%s", (Companhia_aerea, Dia_da_semana, Numero_voo))
         self.db.commit()
-        
+
+
+    # próxima tabela
 
     def encerrar_conexao(self): #fecha a conexão com o banco
         self.db.close()

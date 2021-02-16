@@ -207,7 +207,6 @@ def tabela_voo():
         add_companhia_aerea.delete(0, END)
         add_dia.delete(0, END)
 
-    
 
 
     #Botões pra tela aeroporto
