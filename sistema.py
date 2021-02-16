@@ -209,7 +209,7 @@ def tabela_voo():
 
 
 
-    #Botões pra tela aeroporto
+    #Botões pra tela voo
     adicionar_voo = Button(voo, text="Adicionar voo", command=add_voo)
     adicionar_voo.grid(row=8, column=0, padx=10, pady=10)
 
