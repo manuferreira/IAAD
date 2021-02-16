@@ -59,6 +59,7 @@ class Database:
     def atualizar_voo(self, Numero_voo, Companhia_aerea, Dia_da_semana):
         self.my_cursor.execute("UPDATE voo SET Companhia_aerea=%s, Dia_da_semana=%s WHERE Numero_voo=%s", (Companhia_aerea, Dia_da_semana, Numero_voo))
         self.db.commit()
+        
 
     def encerrar_conexao(self): #fecha a conexão com o banco
         self.db.close()
