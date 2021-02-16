@@ -144,11 +144,23 @@ def tabela_aeroporto():
     lista_aeroporto.bind('<<ListboxSelect>>', selecionar_item)
 
     populate_list()
+
+
+# TABELA VOO
+
+def tabela_voo():
+    voo = Tk()
+    voo.title("Aeroporto")
+    voo.geometry("700x350")
+
     
 
 #Botões pra tela principal
 aeroporto = Button(root, text="Dados aeroporto", command=tabela_aeroporto)
 aeroporto.grid(row=20, column=0, padx=10)
+
+voo = Button(root, text="Dados voo", command=tabela_voo)
+voo.grid(row=20, column=1, padx=10)
 
 
 
