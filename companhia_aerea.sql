@@ -17,8 +17,8 @@ CREATE TABLE voo (
 );
 
 CREATE TABLE trecho_voo(
-    Numero_voo VARCHAR(6) NOT NULL,
 	Numero_trecho INT NOT NULL,
+    Numero_voo VARCHAR(6) NOT NULL,
     Codigo_aeroporto_partida VARCHAR(5) NOT NULL,
     Codigo_aeroporto_chegada VARCHAR(5) NOT NULL,
     Horario_partida_previsto VARCHAR(10),
@@ -29,14 +29,14 @@ CREATE TABLE trecho_voo(
 CREATE TABLE instancia_trecho(
 	Numero_voo VARCHAR(6) NOT NULL,
     Numero_trecho INT NOT NULL,
-   `Data` DATE NOT NULL,
+    Data DATE NOT NULL,
     Numero_assentos_disponiveis VARCHAR(45),
     Codigo_aeronave VARCHAR(5),
     Codigo_aeroporto_partida VARCHAR(5),
     Horario_partida VARCHAR(10),
     Codigo_aeroporto_chegada VARCHAR(5),
     Horario_chegada VARCHAR(10),
-    PRIMARY KEY(Numero_voo, Numero_trecho, `Data`)
+    PRIMARY KEY(Numero_voo, Numero_trecho, Data)
 );
 
 CREATE TABLE tarifa(
@@ -54,7 +54,6 @@ CREATE TABLE tipo_aeronave(
     PRIMARY KEY(Nome_tipo_aeronave)
 );
 
-
 CREATE TABLE pode_pousar(
 	Nome_tipo_aeronave VARCHAR(45) NOT NULL,
     Codigo_aeroporto VARCHAR(5) NOT NULL,
@@ -71,12 +70,13 @@ CREATE TABLE aeronave(
 CREATE TABLE reserva_assento(
 	Numero_voo VARCHAR(6) NOT NULL,
     Numero_trecho INT NOT NULL,
-    `Data` DATE NOT NULL,
+    Data DATE NOT NULL,
     Numero_assento VARCHAR(10) NOT NULL,
     Nome_cliente VARCHAR(50),
     Telefone_cliente VARCHAR(10),
-    PRIMARY KEY(Numero_voo, Numero_trecho, `Data`, Numero_assento)
+    PRIMARY KEY(Numero_voo, Numero_trecho, Data, Numero_assento)
 );
+
 
 /*INSERINDO NAS TABELAS*/
 INSERT INTO aeroporto VALUES 
@@ -92,28 +92,34 @@ INSERT INTO voo VALUES
     ('444446','NOONEGOES','DOMINGO');
 
 INSERT INTO trecho_voo VALUES
-    ('111116',1,'10001','20002','11:11','00:00'),
-    ('222226',2,'20002','15030','22:22','00:00'),
-    ('333336',3,'15030','30003','00:33','00:00'),
-    ('444446',4,'30003','10001','00:44','00:00');
+    (1,'111116','10001','20002','11:11','00:00'),
+    (2,'222226','20002','15030','22:22','00:00'),
+    (3,'333336','15030','30003','00:33','00:00'),
+    (4,'444446','30003','10001','00:44','00:00');
 
 INSERT INTO instancia_trecho VALUES
     ('111116',1,'2021/01/01','20','11115','10001','11:11','20002','00:00'),
     ('222226',2,'2021/10/01','10','22225','20002','22:22','15030','00:00'),
     ('333336',3,'2021/02/09','3','33335','15030','00:33','30003','00:00'),
     ('444446',4,'2021/02/04','0','44445','30003','00:44','10001','00:00');
-
-INSERT INTO  tarifa VALUES
-    ('111116',11,20,'NA'),
-    ('222226',12,10,'NA'),
-    ('333336',13,3,'NA'),
-    ('444446',14,0,'NA');
-
+    
 INSERT INTO tipo_aeronave VALUES
     ('Jatinho','30','MANUSENDS'),
     ('Boing','120','RENATRAVEL'),
     ('Foguete','4','VITORRIVE'),
     ('Teleporte','1000','NOONEGOES');
+    
+INSERT INTO aeronave VALUES
+    ('11115','30','Jatinho'),
+    ('22225','120','Boing'),
+    ('33335','3','Foguete'),
+    ('44445','1000','Teleporte');
+
+INSERT INTO tarifa VALUES
+    ('111116',11,20,'NA'),
+    ('222226',12,10,'NA'),
+    ('333336',13,3,'NA'),
+    ('444446',14,0,'NA');
 
 INSERT INTO pode_pousar VALUES 
     ('Jatinho','20002'),
@@ -121,18 +127,12 @@ INSERT INTO pode_pousar VALUES
     ('Foguete','30003'),
     ('Teleporte','10001');
 
-INSERT INTO aeronave VALUES
-    ('11115','30','Jatinho'),
-    ('22225','120','Boing'),
-    ('33335','3','Foguete'),
-    ('44445','1000','Teleporte');
-
-
 INSERT INTO reserva_assento VALUES 
     ('111116',1,'2021/01/01','M01','Manussa','8190909090'),
     ('222226',2,'2021/10/01','R02','Renato','8198080808'),
     ('333336',3,'2021/02/09','J03','J. Victor','8197070707'),
     ('444446',4,'2021/02/04','N04','No One','8196060606');
+
 
 ALTER TABLE trecho_voo ADD FOREIGN KEY(Numero_voo) REFERENCES voo(Numero_voo);
 ALTER TABLE trecho_voo ADD FOREIGN KEY(Codigo_aeroporto_partida) REFERENCES aeroporto(Codigo_aeroporto);
@@ -147,3 +147,6 @@ ALTER TABLE pode_pousar ADD FOREIGN KEY(Nome_tipo_aeronave) REFERENCES tipo_aero
 ALTER TABLE pode_pousar ADD FOREIGN KEY(Codigo_aeroporto) REFERENCES aeroporto(Codigo_aeroporto);
 ALTER TABLE aeronave ADD FOREIGN KEY(Tipo_aeronave) REFERENCES tipo_aeronave(Nome_tipo_aeronave);
 ALTER TABLE reserva_assento ADD FOREIGN KEY(Numero_voo, Numero_trecho, Data) REFERENCES instancia_trecho(Numero_voo, Numero_trecho, Data);
+
+
+
