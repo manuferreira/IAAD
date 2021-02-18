@@ -134,19 +134,19 @@ INSERT INTO reserva_assento VALUES
     ('444446',4,'2021/02/04','N04','No One','8196060606');
 
 
-ALTER TABLE trecho_voo ADD FOREIGN KEY(Numero_voo) REFERENCES voo(Numero_voo);
-ALTER TABLE trecho_voo ADD FOREIGN KEY(Codigo_aeroporto_partida) REFERENCES aeroporto(Codigo_aeroporto);
-ALTER TABLE trecho_voo ADD FOREIGN KEY(Codigo_aeroporto_chegada) REFERENCES aeroporto(Codigo_aeroporto);
-ALTER TABLE instancia_trecho ADD FOREIGN KEY(Numero_voo) REFERENCES voo(Numero_voo);
-ALTER TABLE instancia_trecho ADD FOREIGN KEY(Numero_trecho) REFERENCES trecho_voo(Numero_trecho);
-ALTER TABLE instancia_trecho ADD FOREIGN KEY(Codigo_aeronave) REFERENCES aeronave(Codigo_aeronave);
-ALTER TABLE instancia_trecho ADD FOREIGN KEY(Codigo_aeroporto_partida) REFERENCES aeroporto(Codigo_aeroporto);
-ALTER TABLE instancia_trecho ADD FOREIGN KEY(Codigo_aeroporto_chegada) REFERENCES aeroporto(Codigo_aeroporto);
-ALTER TABLE tarifa ADD FOREIGN KEY(Numero_voo) REFERENCES voo(Numero_voo);
-ALTER TABLE pode_pousar ADD FOREIGN KEY(Nome_tipo_aeronave) REFERENCES tipo_aeronave(Nome_tipo_aeronave);
-ALTER TABLE pode_pousar ADD FOREIGN KEY(Codigo_aeroporto) REFERENCES aeroporto(Codigo_aeroporto);
-ALTER TABLE aeronave ADD FOREIGN KEY(Tipo_aeronave) REFERENCES tipo_aeronave(Nome_tipo_aeronave);
-ALTER TABLE reserva_assento ADD FOREIGN KEY(Numero_voo, Numero_trecho, Data) REFERENCES instancia_trecho(Numero_voo, Numero_trecho, Data);
+ALTER TABLE trecho_voo ADD FOREIGN KEY(Numero_voo) REFERENCES voo(Numero_voo) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE trecho_voo ADD FOREIGN KEY(Codigo_aeroporto_partida) REFERENCES aeroporto(Codigo_aeroporto) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE trecho_voo ADD FOREIGN KEY(Codigo_aeroporto_chegada) REFERENCES aeroporto(Codigo_aeroporto)ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE instancia_trecho ADD FOREIGN KEY(Numero_voo) REFERENCES voo(Numero_voo)ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE instancia_trecho ADD FOREIGN KEY(Numero_trecho) REFERENCES trecho_voo(Numero_trecho)ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE instancia_trecho ADD FOREIGN KEY(Codigo_aeronave) REFERENCES aeronave(Codigo_aeronave)ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE instancia_trecho ADD FOREIGN KEY(Codigo_aeroporto_partida) REFERENCES aeroporto(Codigo_aeroporto)ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE instancia_trecho ADD FOREIGN KEY(Codigo_aeroporto_chegada) REFERENCES aeroporto(Codigo_aeroporto)ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE tarifa ADD FOREIGN KEY(Numero_voo) REFERENCES voo(Numero_voo) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE pode_pousar ADD FOREIGN KEY(Nome_tipo_aeronave) REFERENCES tipo_aeronave(Nome_tipo_aeronave) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE pode_pousar ADD FOREIGN KEY(Codigo_aeroporto) REFERENCES aeroporto(Codigo_aeroporto) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE aeronave ADD FOREIGN KEY(Tipo_aeronave) REFERENCES tipo_aeronave(Nome_tipo_aeronave) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE reserva_assento ADD FOREIGN KEY(Numero_voo, Numero_trecho, Data) REFERENCES instancia_trecho(Numero_voo, Numero_trecho, Data) ON DELETE CASCADE ON UPDATE CASCADE;
 
 
 
