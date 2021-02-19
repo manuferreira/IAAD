@@ -73,13 +73,13 @@ class Database:
         self.db.commit()
 
 
-    def remover_trecho_voo(self, Numero_voo):
-        self.my_cursor.execute("DELETE FROM trecho_voo WHERE Numero_voo = %s", (Numero_voo,))
+    def remover_trecho_voo(self, Numero_trecho):
+        self.my_cursor.execute("DELETE FROM trecho_voo WHERE Numero_trecho = %s", (Numero_trecho,))
         self.db.commit()
 
 
-    def atualizar_trecho_voo(self, Numero_voo, Companhia_aerea, Dia_da_semana):
-        self.my_cursor.execute("UPDATE trecho_voo SET Numero_trecho=%s, Codigo_aeroporto_partida=%s, Codigo_aeroporto_chegada=%s, Horario_partida_previsto=%s, Horario_chegada_previsto=%s WHERE Numero_voo = %s", (Numero_trecho, Codigo_aeroporto_partida, Codigo_aeroporto_chegada, Horario_partida_previsto, Horario_chegada_previsto, Numero_voo))
+    def atualizar_trecho_voo(self, Numero_trecho, Numero_voo, Codigo_aeroporto_partida, Codigo_aeroporto_chegada, Horario_partida_previsto, Horario_chegada_previsto):
+        self.my_cursor.execute("UPDATE trecho_voo SET Codigo_aeroporto_partida=%s, Codigo_aeroporto_chegada=%s, Horario_partida_previsto=%s, Horario_chegada_previsto=%s WHERE Numero_voo = %s AND Numero_trecho=%s", (Codigo_aeroporto_partida, Codigo_aeroporto_chegada, Horario_partida_previsto, Horario_chegada_previsto, Numero_voo, Numero_trecho))
         self.db.commit()
 
 
