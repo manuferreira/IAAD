@@ -106,6 +106,31 @@ class Database:
         self.db.commit()
         
 
+    # Métodos referentes a tabela tipo_aeronave 
+    def mostrar_tipo_aeronave(self):
+        self.my_cursor.execute("SELECT * FROM tipo_aeronave")
+        linhas = self.my_cursor.fetchall()
+        return linhas
+        
+
+    def adicionar_tipo_aeronave(self, Nome_tipo_aeronave, Qtd_max_assentos, Companhia):
+        self.my_cursor.execute("INSERT INTO tipo_aeronave VALUES (%s, %s, %s)",
+                               (Nome_tipo_aeronave, Qtd_max_assentos, Companhia))
+        self.db.commit()
+
+
+    def remover_tipo_aeronave(self, Nome_tipo_aeronave):
+        self.my_cursor.execute("DELETE FROM tipo_aeronave WHERE Nome_tipo_aeronave = %s", (Nome_tipo_aeronave,))
+        self.db.commit()
+
+
+    def atualizar_tipo_aeronave(self, Nome_tipo_aeronave, Qtd_max_assentos, Companhia):
+        self.my_cursor.execute(
+            "UPDATE tipo_aeronave SET Qtd_max_assentos = %s, Companhia = %s WHERE Nome_tipo_aeronave = %s", (Qtd_max_assentos, Companhia, Nome_tipo_aeronave))
+        self.db.commit()
+
+
+
     def encerrar_conexao(self): #fecha a conexão com o banco
         self.db.close()
 

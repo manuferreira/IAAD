@@ -405,6 +405,10 @@ voo.grid(row=20, column=1, padx=10)
 tarifa = Button(root, text="Dados tarifa", command=tabela_tarifa)
 tarifa.grid(row=20, column=3, padx=10)
 
+tipo_aeronave = Button(root, text="Dados do tipo de aeronave", command=tabela_tipos_aeronave)
+tipo_aeronave.grid(row=20, column=4, padx=10)
+
+
 root.mainloop()
 mydb.encerrar_conexao()
 
