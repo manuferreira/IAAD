@@ -261,8 +261,8 @@ def tabela_voo():
 
     populate_list()
 
-def tabela_trecho():
-    return
+# def tabela_trecho():
+#     return
 
 #Botões pra tela principal
 aeroporto = Button(root, text="Dados aeroporto", command=tabela_aeroporto)
@@ -271,9 +271,11 @@ aeroporto.grid(row=20, column=0, padx=10)
 voo = Button(root, text="Dados voo", command=tabela_voo)
 voo.grid(row=20, column=1, padx=10)
 
-trecho = Button(root, text="Dados dos Trechos", command=tabela_trecho)
-trecho.grid(row=20, column=2, padx=10)
+# trecho = Button(root, text="Dados dos Trechos", command=tabela_trecho)
+# trecho.grid(row=20, column=2, padx=10)
 
+tarifa = Button(root, text="Dados tarifa", command=tabela_tarifa)
+tarifa.grid(row=20, column=3, padx=10)
 
 root.mainloop()
 mydb.encerrar_conexao()

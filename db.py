@@ -6,7 +6,7 @@ class Database:
     def __init__(self): #conexão com o banco de dados
         self.db = mysql.connector.connect(host = "localhost", 
                                             user = "root",
-                                            passwd = "H@lldaur2100",
+                                            passwd = "manussa1",
                                             database = "companhia_aerea",)
         self.my_cursor = self.db.cursor()
 
@@ -46,6 +46,7 @@ class Database:
         linhas = self.my_cursor.fetchall()
         return linhas
 
+
     def inserir_voo(self, Numero_voo, Companhia_aerea, Dia_da_semana):
         self.my_cursor.execute("INSERT INTO voo VALUES (%s, %s, %s)", (Numero_voo, Companhia_aerea, Dia_da_semana))
         self.db.commit()
@@ -61,27 +62,49 @@ class Database:
         self.db.commit()
 
 
-    #metodos referentre a Tabela trecho_voo
+    #metodos referente a Tabela trecho_voo
 
-    def mostrar_trecho_voo(self):
-        self.my_cursor.execute("SELECT * FROM trecho_voo")
+    # def mostrar_trecho_voo(self):
+    #     self.my_cursor.execute("SELECT * FROM trecho_voo")
+    #     linhas = self.my_cursor.fetchall()
+    #     return linhas
+
+    # def inserir_trecho_voo(self, Numero_trecho, Numero_voo, Codigo_aeroporto_partida, Codigo_aeroporto_chegada, Horario_partida_previsto, Horario_chegada_previsto):
+    #     self.my_cursor.execute("INSERT INTO trecho_voo VALUES (%s, %s, %s, %s, %s, %s)", (Numero_trecho, Numero_voo, Codigo_aeroporto_partida, Codigo_aeroporto_chegada, Horario_partida_previsto, Horario_chegada_previsto))
+    #     self.db.commit()
+
+
+    # def remover_trecho_voo(self, Numero_voo):
+    #     self.my_cursor.execute("DELETE FROM trecho_voo WHERE Numero_voo = %s", (Numero_voo,))
+    #     self.db.commit()
+
+
+    # def atualizar_trecho_voo(self, Numero_voo, Companhia_aerea, Dia_da_semana):
+    #     self.my_cursor.execute("UPDATE trecho_voo SET Numero_trecho=%s, Codigo_aeroporto_partida=%s, Codigo_aeroporto_chegada=%s, Horario_partida_previsto=%s, Horario_chegada_previsto=%s WHERE Numero_voo = %s", (Numero_trecho, Codigo_aeroporto_partida, Codigo_aeroporto_chegada, Horario_partida_previsto, Horario_chegada_previsto, Numero_voo))
+    #     self.db.commit()
+
+
+    def mostrar_tarifas(self):
+        self.my_cursor.execute("SELECT * FROM tarifa")
         linhas = self.my_cursor.fetchall()
         return linhas
 
-    def inserir_trecho_voo(self, Numero_trecho, Numero_voo, Codigo_aeroporto_partida, Codigo_aeroporto_chegada, Horario_partida_previsto, Horario_chegada_previsto):
-        self.my_cursor.execute("INSERT INTO trecho_voo VALUES (%s, %s, %s, %s, %s, %s)", (Numero_trecho, Numero_voo, Codigo_aeroporto_partida, Codigo_aeroporto_chegada, Horario_partida_previsto, Horario_chegada_previsto))
+
+    def inserir_tarifa(self, Numero_voo, Codigo_tarifa, Quantidade, Restricoes):
+        self.my_cursor.execute("INSERT INTO tarifa VALUES (%s, %s, %s, %s)",
+                               (Numero_voo, Codigo_tarifa, Quantidade, Restricoes))
         self.db.commit()
 
 
-    def remover_trecho_voo(self, Numero_voo):
-        self.my_cursor.execute("DELETE FROM trecho_voo WHERE Numero_voo = %s", (Numero_voo,))
+    def remover_tarifa(self, Codigo_tarifa):
+        self.my_cursor.execute("DELETE FROM tarifa WHERE Codigo_tarifa = %s", (Codigo_tarifa,))
         self.db.commit()
 
 
-    def atualizar_trecho_voo(self, Numero_voo, Companhia_aerea, Dia_da_semana):
-        self.my_cursor.execute("UPDATE trecho_voo SET Numero_trecho=%s, Codigo_aeroporto_partida=%s, Codigo_aeroporto_chegada=%s, Horario_partida_previsto=%s, Horario_chegada_previsto=%s WHERE Numero_voo = %s", (Numero_trecho, Codigo_aeroporto_partida, Codigo_aeroporto_chegada, Horario_partida_previsto, Horario_chegada_previsto, Numero_voo))
+    def atualizar_tarifa(self, Numero_voo, Codigo_tarifa, Quantidade, Restricoes):
+        self.my_cursor.execute("UPDATE tarifa SET Quantidade = %s, Restricoes = %s WHERE Numero_voo = %s AND Codigo_tarifa = %s",(Quantidade, Restricoes, Numero_voo, Codigo_tarifa))
         self.db.commit()
-
+        
 
     def encerrar_conexao(self): #fecha a conexão com o banco
         self.db.close()
