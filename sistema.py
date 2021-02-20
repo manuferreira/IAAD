@@ -416,9 +416,9 @@ def tabela_instancia_trecho():
             indice = lista_instancia_trecho.curselection()[0]
             item_selecionado = lista_instancia_trecho.get(indice)
             add_numero_trecho.delete(0, END)
-            add_numero_trecho.insert(END, item_selecionado[0])
+            add_numero_trecho.insert(END, item_selecionado[1])
             add_numero_voo.delete(0, END)
-            add_numero_voo.insert(END, item_selecionado[1])
+            add_numero_voo.insert(END, item_selecionado[0])
             add_Data.delete(0, END)
             add_Data.insert(END, item_selecionado[2])
             add_numero_assentos.delete(0, END)
@@ -457,7 +457,7 @@ def tabela_instancia_trecho():
 
 
     def update_instancia_trecho():
-        mydb.atualizar_instancia_trecho(item_selecionado[0], add_numero_voo.get(),  add_Data.get(), add_numero_assentos.get(), add_codigo_aeronave.get(), add_codigo_aeroporto_p.get(), add_codigo_aeroporto_c.get(), add_horario_partida.get(), add_horario_chegada.get())
+        mydb.atualizar_instancia_trecho(add_numero_trecho.get(), add_numero_voo.get(),  add_Data.get(), add_numero_assentos.get(), add_codigo_aeronave.get(), add_codigo_aeroporto_p.get(), add_codigo_aeroporto_c.get(), add_horario_partida.get(), add_horario_chegada.get())
         populate_list()
 
 
