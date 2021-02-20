@@ -518,6 +518,39 @@ def tabela_pode_pousar():
             lista_pode_pousar.insert(END, linha)
 
 
+    def selecionar_item(event):
+        try:
+            global item_selecionado
+            indice = lista_pode_pousar.curselection()[0]
+            item_selecionado = lista_pode_pousar.get(indice)
+            add_nome_tipo_aeronave.delete(0, END)
+            add_nome_tipo_aeronave.insert(END, item_selecionado[0])
+            add_codigo_aeroporto.delete(0, END)
+            add_codigo_aeroporto.insert(END, item_selecionado[1])
+        except IndexError:
+            pass
+
+
+    def add_pouso():
+        if add_nome_tipo_aeronave.get() == '' or add_codigo_aeroporto.get() == '':
+            messagebox.showerror('Preencha todos os campos')
+            return
+        mydb.adicionar_pode_pousar(add_nome_tipo_aeronave.get(), add_codigo_aeroporto.get())
+        lista_pode_pousar.delete(0, END)
+        lista_pode_pousar.insert(END, (add_nome_tipo_aeronave.get(), add_codigo_aeroporto.get()))
+        limpar_pode_pousar()
+        populate_list()
+
+
+    def remove_pouso():
+        mydb.remover_pode_pousar(item_selecionado[0], item_selecionado[1])
+        limpar_pode_pousar()
+        populate_list()
+
+
+    def limpar_pode_pousar():
+        add_nome_tipo_aeronave.delete(0, END)
+        add_codigo_aeroporto.delete(0, END)
 
 
     adicionar_pouso = Button(
@@ -525,38 +558,30 @@ def tabela_pode_pousar():
     adicionar_pouso.grid(row=8, column=0, padx=10, pady=10)
 
     remover_pouso = Button(
-        pode_pousar, text="Remover um pouso", command=remove_tipo_aeronave)
+        pode_pousar, text="Remover um pouso", command=remove_pouso)
     remover_pouso.grid(row=8, column=1, padx=10, pady=10)
 
-    atualizar_tipo_aeronave = Button(
-        pode_pousar, text="Atualizar um tipo de aeronave", command=update_tipo_aeronave)
-    atualizar_tipo_aeronave.grid(row=8, column=2, padx=10, pady=10)
-
-    limpar_campo_tipo_aeronave = Button(
-        pode_pousar, text="Limpar campos", command=limpar_tipo_aeronave)
-    limpar_campo_tipo_aeronave.grid(row=8, column=3, padx=10, pady=10)
+    limpar_campo_pode_pousar = Button(
+        pode_pousar, text="Limpar campos", command=limpar_pode_pousar)
+    limpar_campo_pode_pousar.grid(row=8, column=2, padx=10, pady=10)
 
     #caixas de texto:
     add_nome_tipo_aeronave = Entry(pode_pousar, width=30)
     add_nome_tipo_aeronave.grid(row=0, column=1, padx=20)
 
-    add_qtd_assentos = Entry(pode_pousar, width=30)
-    add_qtd_assentos.grid(row=1, column=1, padx=20)
+    add_codigo_aeroporto = Entry(pode_pousar, width=30)
+    add_codigo_aeroporto.grid(row=1, column=1, padx=20)
 
-    add_companhia = Entry(pode_pousar, width=30)
-    add_companhia.grid(row=2, column=1, padx=20)
 
     #labels pras caixas de texto
     add_nome_tipo_aeronave_label = Label(
         pode_pousar, text="Nome do tipo de aeronave")
     add_nome_tipo_aeronave_label.grid(row=0, column=0)
 
-    add_qtd_assentos_label = Label(
-        pode_pousar, text="Quantidade máxima de assentos")
-    add_qtd_assentos_label.grid(row=1, column=0)
+    add_codigo_aeronave_label = Label(
+        pode_pousar, text="Código do aeroporto")
+    add_codigo_aeronave_label.grid(row=1, column=0)
 
-    add_companhia_label = Label(pode_pousar, text="Companhia")
-    add_companhia_label.grid(row=2, column=0)
 
     #lista
     lista_pode_pousar = Listbox(pode_pousar, height=8, width=50)
