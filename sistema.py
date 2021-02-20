@@ -505,6 +505,76 @@ def tabela_tipo_aeronave():
 
     populate_list()
 
+# TABELA PODE_POUSAR 
+def tabela_pode_pousar():
+    pode_pousar = Tk()
+    pode_pousar.title("Pode pousar")
+    pode_pousar.geometry("700x350")
+
+    def populate_list():
+        lista_pode_pousar.delete(0, END)
+        popular = mydb.mostrar_pode_pousar()
+        for linha in popular:
+            lista_pode_pousar.insert(END, linha)
+
+
+
+
+    adicionar_pouso = Button(
+        pode_pousar, text="Adicionar pouso", command=add_pouso)
+    adicionar_pouso.grid(row=8, column=0, padx=10, pady=10)
+
+    remover_pouso = Button(
+        pode_pousar, text="Remover um pouso", command=remove_tipo_aeronave)
+    remover_pouso.grid(row=8, column=1, padx=10, pady=10)
+
+    atualizar_tipo_aeronave = Button(
+        pode_pousar, text="Atualizar um tipo de aeronave", command=update_tipo_aeronave)
+    atualizar_tipo_aeronave.grid(row=8, column=2, padx=10, pady=10)
+
+    limpar_campo_tipo_aeronave = Button(
+        pode_pousar, text="Limpar campos", command=limpar_tipo_aeronave)
+    limpar_campo_tipo_aeronave.grid(row=8, column=3, padx=10, pady=10)
+
+    #caixas de texto:
+    add_nome_tipo_aeronave = Entry(pode_pousar, width=30)
+    add_nome_tipo_aeronave.grid(row=0, column=1, padx=20)
+
+    add_qtd_assentos = Entry(pode_pousar, width=30)
+    add_qtd_assentos.grid(row=1, column=1, padx=20)
+
+    add_companhia = Entry(pode_pousar, width=30)
+    add_companhia.grid(row=2, column=1, padx=20)
+
+    #labels pras caixas de texto
+    add_nome_tipo_aeronave_label = Label(
+        pode_pousar, text="Nome do tipo de aeronave")
+    add_nome_tipo_aeronave_label.grid(row=0, column=0)
+
+    add_qtd_assentos_label = Label(
+        pode_pousar, text="Quantidade máxima de assentos")
+    add_qtd_assentos_label.grid(row=1, column=0)
+
+    add_companhia_label = Label(pode_pousar, text="Companhia")
+    add_companhia_label.grid(row=2, column=0)
+
+    #lista
+    lista_pode_pousar = Listbox(pode_pousar, height=8, width=50)
+    lista_pode_pousar.grid(row=25, column=0, columnspan=3,
+                             rowspan=5, pady=20, padx=20)
+
+    #criando scrollbar
+    scrollbar = Scrollbar(pode_pousar)
+    scrollbar.grid(row=25, column=3)
+
+    #colocar a scroll na lista
+    lista_pode_pousar.configure(yscrollcommand=scrollbar.set)
+    scrollbar.configure(command=lista_pode_pousar.yview)
+
+    #ligar a lista ao select
+    lista_pode_pousar.bind('<<ListboxSelect>>', selecionar_item)
+
+    populate_list()
 
 
 #Botões pra tela principal
@@ -514,14 +584,18 @@ aeroporto.grid(row=20, column=0, padx=10)
 voo = Button(root, text="Dados voo", command=tabela_voo)
 voo.grid(row=20, column=1, padx=10)
 
-# trecho = Button(root, text="Dados dos Trechos", command=tabela_trecho)
-# trecho.grid(row=20, column=2, padx=10)
+trecho = Button(root, text="Dados dos Trechos", command=tabela_trecho)
+trecho.grid(row=20, column=2, padx=10)
 
 tarifa = Button(root, text="Dados tarifa", command=tabela_tarifa)
 tarifa.grid(row=20, column=3, padx=10)
 
 tipo_aeronave = Button(root, text="Dados do tipo de aeronave", command=tabela_tipo_aeronave)
 tipo_aeronave.grid(row=20, column=4, padx=10)
+
+pode_pousar = Button(root, text="Dados sobre o pouso",
+                     command=tabela_pode_pousar)
+pode_pousar.grid(row=20, column=5, padx=10)
 
 root.mainloop()
 mydb.encerrar_conexao()
