@@ -152,7 +152,7 @@ def tabela_aeroporto():
 # TABELA VOO
 def tabela_voo():
     voo = Tk()
-    voo.title("Aeroporto")
+    voo.title("Voo")
     voo.geometry("700x350")
 
 
@@ -261,6 +261,115 @@ def tabela_voo():
 
     populate_list()
 
+
+# TABELA TARIFA 
+def tabela_tarifa():
+    tarifa = Tk()
+    tarifa.title("Tarifa")
+    tarifa.geometry("700x350")
+
+    def populate_list():
+        lista_tarifa.delete(0, END)
+        popular = mydb.mostrar_tarifas()
+        for linha in popular:
+            lista_tarifa.insert(END, linha)
+
+    def add_tarifa():
+        if add_numero_voo_tarifa.get() == '' or add_codigo_tarifa.get() == '' or add_quantidade.get() == '' or add_restricoes.get() == '':
+            messagebox.showerror('Preencha todos os campos')
+            return
+        mydb.inserir_tarifa(add_numero_voo_tarifa.get(), add_codigo_tarifa.get(), add_quantidade.get(
+        ), add_restricoes.get())  
+        lista_tarifa.delete(0, END)  
+        lista_tarifa.insert(END, (add_numero_voo_tarifa.get(), add_codigo_tarifa.get(), add_quantidade.get(
+        ), add_restricoes.get())) 
+        limpar_tarifa()
+        populate_list()
+        
+    def remove_tarifa():
+        mydb.remover_tarifa(item_selecionado[1])
+        limpar_tarifa()
+        populate_list()
+
+
+    def update_tarifa():
+        mydb.atualizar_tarifa(
+            item_selecionado[0], item_selecionado[1], add_quantidade.get(), add_restricoes.get())
+        populate_list()
+
+
+    def limpar_tarifa():
+        add_numero_voo_tarifa.delete(0, END)
+        add_codigo_tarifa.delete(0, END)
+        add_quantidade.delete(0, END)
+        add_restricoes.delete(0, END)
+
+
+    #botões pra tela tarifa:
+    adicionar_tarifa = Button(
+        tarifa, text="Adicionar tarifa", command=add_tarifa)
+    adicionar_tarifa.grid(row=8, column=0, padx=10, pady=10)
+
+    remover_tarifa = Button(
+        tarifa, text="Remover tarifa", command=remove_tarifa)
+    remover_tarifa.grid(row=8, column=1, padx=10, pady=10)
+
+    atualizar_tarifa = Button(
+        tarifa, text="Atualizar tarifa", command=update_tarifa)
+    atualizar_tarifa.grid(row=8, column=2, padx=10, pady=10)
+
+    limpar_campo_tarifa = Button(
+        tarifa, text="Limpar campos", command=limpar_tarifa)
+    limpar_campo_tarifa.grid(row=8, column=3, padx=10, pady=10)
+
+
+    #caixas de texto:
+    add_numero_voo_tarifa = Entry(tarifa, width=30)
+    add_numero_voo_tarifa.grid(row=0, column=1, padx=20)
+
+    add_codigo_tarifa = Entry(tarifa, width=30)
+    add_codigo_tarifa.grid(row=1, column=1, padx=20)
+
+    add_quantidade = Entry(tarifa, width=30)
+    add_quantidade.grid(row=2, column=1, padx=20)
+
+    add_restricoes = Entry(tarifa, width=30)
+    add_restricoes.grid(row=3, column=1, padx=20)
+
+
+    #labels pras caixas de texto
+    add_numero_voo_tarifa_label = Label(tarifa, text="Numero voo")
+    add_numero_voo_tarifa_label.grid(row=0, column=0)
+
+    add_codigo_tarifa_label = Label(tarifa, text="Código Tarifa")
+    add_codigo_tarifa_label.grid(row=1, column=0)
+
+    add_quantidade_label = Label(tarifa, text="Quantidade")
+    add_quantidade_label.grid(row=2, column=0)
+
+    add_restricoes_label = Label(tarifa, text="Restrições")
+    add_restricoes_label.grid(row=3, column=0)
+
+
+    #lista
+    lista_tarifa = Listbox(tarifa, height=8, width=50)
+    lista_tarifa.grid(row=25, column=0, columnspan=3,
+                         rowspan=5, pady=20, padx=20)
+
+    #criando scrollbar
+    scrollbar = Scrollbar(tarifa)
+    scrollbar.grid(row=25, column=3)
+
+    #colocar a scroll na lista
+    lista_tarifa.configure(yscrollcommand=scrollbar.set)
+    scrollbar.configure(command=lista_tarifa.yview)
+
+    #ligar a lista ao select
+    lista_tarifa.bind('<<ListboxSelect>>', selecionar_item)
+
+    populate_list()
+
+        
 def tabela_trecho():
     trecho = Tk()
     trecho.title("Aeroporto")
@@ -271,7 +380,6 @@ def tabela_trecho():
         popular = mydb.mostrar_trecho_voo()
         for linha in popular:
             lista_trecho.insert(END, linha)
-
 
     def selecionar_item(event):
         try:
@@ -294,6 +402,224 @@ def tabela_trecho():
             pass
 
 
+
+# TABELA TIPO_AERONAVE
+def tabela_tipo_aeronave():
+    tipo_aeronave = Tk()
+    tipo_aeronave.title("Voo")
+    tipo_aeronave.geometry("700x350")
+
+    def populate_list():
+        lista_tipo_aeronave.delete(0, END)
+        popular = mydb.mostrar_tipo_aeronave()
+        for linha in popular:
+            lista_tipo_aeronave.insert(END, linha)
+
+
+    def add_tipo_aeronave():
+        if add_nome_tipo_aeronave.get() == '' or add_qtd_assentos.get() == '' or add_companhia.get() == '':
+            messagebox.showerror('Preencha todos os campos')
+            return
+        mydb.adicionar_tipo_aeronave(add_nome_tipo_aeronave.get(), add_qtd_assentos.get(), add_companhia.get(
+        ))
+        lista_tipo_aeronave.delete(0, END)
+        lista_tipo_aeronave.insert(END, (add_nome_tipo_aeronave.get(), add_qtd_assentos.get(), add_companhia.get(
+        )))
+        limpar_tipo_aeronave()
+        populate_list()
+
+    def selecionar_item(event):
+        try:
+            global item_selecionado
+            indice = lista_tipo_aeronave.curselection()[0]
+            item_selecionado = lista_tipo_aeronave.get(indice)
+            add_nome_tipo_aeronave.delete(0, END)
+            add_nome_tipo_aeronave.insert(END, item_selecionado[0])
+            add_qtd_assentos.delete(0, END)
+            add_qtd_assentos.insert(END, item_selecionado[1])
+            add_companhia.delete(0, END)
+            add_companhia.insert(END, item_selecionado[2])
+        except IndexError:
+            pass
+        
+
+    def remove_tipo_aeronave():
+        mydb.remover_tipo_aeronave(item_selecionado[0])
+        limpar_tipo_aeronave()
+        populate_list()
+
+
+    def update_tipo_aeronave():
+        mydb.atualizar_tipo_aeronave(
+            item_selecionado[0], add_qtd_assentos.get(), add_companhia.get())
+        populate_list()
+
+
+    def limpar_tipo_aeronave():
+        add_nome_tipo_aeronave.delete(0, END)
+        add_qtd_assentos.delete(0, END)
+        add_companhia.delete(0, END)
+
+
+    #botões pra tela tipo aeronave:
+    adicionar_tipo_aeronave = Button(
+        tipo_aeronave, text="Adicionar tipo de aeronave", command=add_tipo_aeronave)
+    adicionar_tipo_aeronave.grid(row=8, column=0, padx=10, pady=10)
+
+    remover_tipo_aeronave = Button(
+        tipo_aeronave, text="Remover um tipo de aeronave", command=remove_tipo_aeronave)
+    remover_tipo_aeronave.grid(row=8, column=1, padx=10, pady=10)
+
+    atualizar_tipo_aeronave = Button(
+        tipo_aeronave, text="Atualizar um tipo de aeronave", command=update_tipo_aeronave)
+    atualizar_tipo_aeronave.grid(row=8, column=2, padx=10, pady=10)
+
+    limpar_campo_tipo_aeronave = Button(
+        tipo_aeronave, text="Limpar campos", command=limpar_tipo_aeronave)
+    limpar_campo_tipo_aeronave.grid(row=8, column=3, padx=10, pady=10)
+
+    #caixas de texto:
+    add_nome_tipo_aeronave = Entry(tipo_aeronave, width=30)
+    add_nome_tipo_aeronave.grid(row=0, column=1, padx=20)
+
+    add_qtd_assentos = Entry(tipo_aeronave, width=30)
+    add_qtd_assentos.grid(row=1, column=1, padx=20)
+
+    add_companhia= Entry(tipo_aeronave, width=30)
+    add_companhia.grid(row=2, column=1, padx=20)
+
+
+    #labels pras caixas de texto
+    add_nome_tipo_aeronave_label = Label(tipo_aeronave, text="Nome do tipo de aeronave")
+    add_nome_tipo_aeronave_label.grid(row=0, column=0)
+
+    add_qtd_assentos_label = Label(tipo_aeronave, text="Quantidade máxima de assentos")
+    add_qtd_assentos_label.grid(row=1, column=0)
+
+    add_companhia_label = Label(tipo_aeronave, text="Companhia")
+    add_companhia_label.grid(row=2, column=0)
+
+
+    #lista
+    lista_tipo_aeronave = Listbox(tipo_aeronave, height=8, width=50)
+    lista_tipo_aeronave.grid(row=25, column=0, columnspan=3,
+                      rowspan=5, pady=20, padx=20)
+
+    #criando scrollbar
+    scrollbar = Scrollbar(tipo_aeronave)
+    scrollbar.grid(row=25, column=3)
+
+    #colocar a scroll na lista
+    lista_tipo_aeronave.configure(yscrollcommand=scrollbar.set)
+    scrollbar.configure(command=lista_tipo_aeronave.yview)
+
+    #ligar a lista ao select
+    lista_tipo_aeronave.bind('<<ListboxSelect>>', selecionar_item)
+
+    populate_list()
+
+# TABELA PODE_POUSAR 
+def tabela_pode_pousar():
+    pode_pousar = Tk()
+    pode_pousar.title("Pode pousar")
+    pode_pousar.geometry("700x350")
+
+    def populate_list():
+        lista_pode_pousar.delete(0, END)
+        popular = mydb.mostrar_pode_pousar()
+        for linha in popular:
+            lista_pode_pousar.insert(END, linha)
+
+
+    def selecionar_item(event):
+        try:
+            global item_selecionado
+            indice = lista_pode_pousar.curselection()[0]
+            item_selecionado = lista_pode_pousar.get(indice)
+            add_nome_tipo_aeronave.delete(0, END)
+            add_nome_tipo_aeronave.insert(END, item_selecionado[0])
+            add_codigo_aeroporto.delete(0, END)
+            add_codigo_aeroporto.insert(END, item_selecionado[1])
+        except IndexError:
+            pass
+
+
+    def add_pouso():
+        if add_nome_tipo_aeronave.get() == '' or add_codigo_aeroporto.get() == '':
+            messagebox.showerror('Preencha todos os campos')
+            return
+        mydb.adicionar_pode_pousar(add_nome_tipo_aeronave.get(), add_codigo_aeroporto.get())
+        lista_pode_pousar.delete(0, END)
+        lista_pode_pousar.insert(END, (add_nome_tipo_aeronave.get(), add_codigo_aeroporto.get()))
+        limpar_pode_pousar()
+        populate_list()
+
+
+    def remove_pouso():
+        mydb.remover_pode_pousar(item_selecionado[0], item_selecionado[1])
+        limpar_pode_pousar()
+        populate_list()
+
+
+    def limpar_pode_pousar():
+        add_nome_tipo_aeronave.delete(0, END)
+        add_codigo_aeroporto.delete(0, END)
+
+
+    adicionar_pouso = Button(
+        pode_pousar, text="Adicionar pouso", command=add_pouso)
+    adicionar_pouso.grid(row=8, column=0, padx=10, pady=10)
+
+    remover_pouso = Button(
+        pode_pousar, text="Remover um pouso", command=remove_pouso)
+    remover_pouso.grid(row=8, column=1, padx=10, pady=10)
+
+    limpar_campo_pode_pousar = Button(
+        pode_pousar, text="Limpar campos", command=limpar_pode_pousar)
+    limpar_campo_pode_pousar.grid(row=8, column=2, padx=10, pady=10)
+
+    #caixas de texto:
+    add_nome_tipo_aeronave = Entry(pode_pousar, width=30)
+    add_nome_tipo_aeronave.grid(row=0, column=1, padx=20)
+
+    add_codigo_aeroporto = Entry(pode_pousar, width=30)
+    add_codigo_aeroporto.grid(row=1, column=1, padx=20)
+
+
+    #labels pras caixas de texto
+    add_nome_tipo_aeronave_label = Label(
+        pode_pousar, text="Nome do tipo de aeronave")
+    add_nome_tipo_aeronave_label.grid(row=0, column=0)
+
+    add_codigo_aeronave_label = Label(
+        pode_pousar, text="Código do aeroporto")
+    add_codigo_aeronave_label.grid(row=1, column=0)
+
+
+    #lista
+    lista_pode_pousar = Listbox(pode_pousar, height=8, width=50)
+    lista_pode_pousar.grid(row=25, column=0, columnspan=3,
+                             rowspan=5, pady=20, padx=20)
+
+    #criando scrollbar
+    scrollbar = Scrollbar(pode_pousar)
+    scrollbar.grid(row=25, column=3)
+
+    #colocar a scroll na lista
+    lista_pode_pousar.configure(yscrollcommand=scrollbar.set)
+    scrollbar.configure(command=lista_pode_pousar.yview)
+
+    #ligar a lista ao select
+    lista_pode_pousar.bind('<<ListboxSelect>>', selecionar_item)
+
+    populate_list()
+
+
+def tabela_trecho():
+    trecho = Tk()
+    trecho.title("Pode pousar")
+    trecho.geometry("700x350")
+  
     def add_trecho():
         if add_numero_trecho.get() == '' or add_numero_voo.get() == '' or add_codigo_aeroporto_p.get() == '' or add_codigo_aeroporto_c.get() == '' or add_horario_partida.get() == '' or add_horario_chegada.get() == '':
             messagebox.showerror('Preencha todos os campos')
@@ -326,7 +652,7 @@ def tabela_trecho():
         add_horario_partida.delete(0, END)
         add_horario_chegada.delete(0, END)
 
-     #Botões pra tela voo
+     #Botões pra tela trecho
     adicionar_trecho = Button(trecho, text="Adicionar Trecho", command=add_trecho)
     adicionar_trecho.grid(row=8, column=0, padx=10, pady=10)
 
@@ -397,6 +723,7 @@ def tabela_trecho():
     lista_trecho.bind('<<ListboxSelect>>', selecionar_item)
 
     populate_list()
+    
 
 def tabela_instancia_trecho():
     instancia_trecho = Tk()
@@ -472,7 +799,7 @@ def tabela_instancia_trecho():
         add_horario_partida.delete(0, END)
         add_horario_chegada.delete(0, END)
 
-     #Botões pra tela voo
+    
     adicionar_instancia_trecho = Button(instancia_trecho, text="Adicionar Instancia Trecho", command=add_instancia_trecho)
     adicionar_instancia_trecho.grid(row=9, column=0, padx=10, pady=10)
 
@@ -562,6 +889,7 @@ def tabela_instancia_trecho():
 
     populate_list()    
 
+
 #Botões pra tela principal
 aeroporto = Button(root, text="Dados aeroporto", command=tabela_aeroporto)
 aeroporto.grid(row=20, column=0, padx=10)
@@ -572,8 +900,20 @@ voo.grid(row=20, column=1, padx=10)
 trecho = Button(root, text="Dados dos Trechos", command=tabela_trecho)
 trecho.grid(row=20, column=2, padx=10)
 
+
+tarifa = Button(root, text="Dados tarifa", command=tabela_tarifa)
+tarifa.grid(row=20, column=3, padx=10)
+
+tipo_aeronave = Button(root, text="Dados do tipo de aeronave", command=tabela_tipo_aeronave)
+tipo_aeronave.grid(row=20, column=4, padx=10)
+
+pode_pousar = Button(root, text="Dados sobre o pouso",
+                     command=tabela_pode_pousar)
+pode_pousar.grid(row=20, column=5, padx=10)
+
 instancia_trecho = Button(root, text="Dados das Instancias dos Trechos", command=tabela_instancia_trecho)
 instancia_trecho.grid(row=20, column=3, padx=10)
+
 
 root.mainloop()
 mydb.encerrar_conexao()
