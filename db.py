@@ -6,7 +6,7 @@ class Database:
     def __init__(self): #conexão com o banco de dados
         self.db = mysql.connector.connect(host = "localhost", 
                                             user = "root",
-                                            passwd = "H@lldaur2100",
+                                            passwd = "manussa1",
                                             database = "companhia_aerea",)
         self.my_cursor = self.db.cursor()
 
@@ -46,6 +46,7 @@ class Database:
         linhas = self.my_cursor.fetchall()
         return linhas
 
+
     def inserir_voo(self, Numero_voo, Companhia_aerea, Dia_da_semana):
         self.my_cursor.execute("INSERT INTO voo VALUES (%s, %s, %s)", (Numero_voo, Companhia_aerea, Dia_da_semana))
         self.db.commit()
@@ -61,7 +62,7 @@ class Database:
         self.db.commit()
 
 
-    #metodos referentre a Tabela trecho_voo
+    #metodos referente a Tabela trecho_voo
 
     def mostrar_trecho_voo(self):
         self.my_cursor.execute("SELECT * FROM trecho_voo")
@@ -76,11 +77,75 @@ class Database:
     def remover_trecho_voo(self, Numero_trecho):
         self.my_cursor.execute("DELETE FROM trecho_voo WHERE Numero_trecho = %s", (Numero_trecho,))
         self.db.commit()
-
+       
 
     def atualizar_trecho_voo(self, Numero_trecho, Numero_voo, Codigo_aeroporto_partida, Codigo_aeroporto_chegada, Horario_partida_previsto, Horario_chegada_previsto):
         self.my_cursor.execute("UPDATE trecho_voo SET Codigo_aeroporto_partida=%s, Codigo_aeroporto_chegada=%s, Horario_partida_previsto=%s, Horario_chegada_previsto=%s WHERE Numero_voo = %s AND Numero_trecho=%s", (Codigo_aeroporto_partida, Codigo_aeroporto_chegada, Horario_partida_previsto, Horario_chegada_previsto, Numero_voo, Numero_trecho))
         self.db.commit()
+
+
+# métodos referentes a tabela tarifa
+    def mostrar_tarifas(self):
+        self.my_cursor.execute("SELECT * FROM tarifa")
+        linhas = self.my_cursor.fetchall()
+        return linhas
+
+
+    def inserir_tarifa(self, Numero_voo, Codigo_tarifa, Quantidade, Restricoes):
+        self.my_cursor.execute("INSERT INTO tarifa VALUES (%s, %s, %s, %s)",
+                               (Numero_voo, Codigo_tarifa, Quantidade, Restricoes))
+        self.db.commit()
+
+
+    def remover_tarifa(self, Codigo_tarifa):
+        self.my_cursor.execute("DELETE FROM tarifa WHERE Codigo_tarifa = %s", (Codigo_tarifa,))
+        self.db.commit()
+
+
+    def atualizar_tarifa(self, Numero_voo, Codigo_tarifa, Quantidade, Restricoes):
+        self.my_cursor.execute("UPDATE tarifa SET Quantidade = %s, Restricoes = %s WHERE Numero_voo = %s AND Codigo_tarifa = %s",(Quantidade, Restricoes, Numero_voo, Codigo_tarifa))
+        self.db.commit()
+        
+
+# Métodos referentes a tabela tipo_aeronave 
+    def mostrar_tipo_aeronave(self):
+        self.my_cursor.execute("SELECT * FROM tipo_aeronave")
+        linhas = self.my_cursor.fetchall()
+        return linhas
+
+
+    def adicionar_tipo_aeronave(self, Nome_tipo_aeronave, Qtd_max_assentos, Companhia):
+        self.my_cursor.execute("INSERT INTO tipo_aeronave VALUES (%s, %s, %s)",
+                               (Nome_tipo_aeronave, Qtd_max_assentos, Companhia))
+        self.db.commit()
+
+
+    def remover_tipo_aeronave(self, Nome_tipo_aeronave):
+        self.my_cursor.execute("DELETE FROM tipo_aeronave WHERE Nome_tipo_aeronave = %s", (Nome_tipo_aeronave,))
+        self.db.commit()
+
+
+    def atualizar_tipo_aeronave(self, Nome_tipo_aeronave, Qtd_max_assentos, Companhia):
+        self.my_cursor.execute(
+            "UPDATE tipo_aeronave SET Qtd_max_assentos = %s, Companhia = %s WHERE Nome_tipo_aeronave = %s", (Qtd_max_assentos, Companhia, Nome_tipo_aeronave))
+        self.db.commit()
+
+
+# métodos referentes a tabela pode_pousar
+    def mostrar_pode_pousar(self):
+        self.my_cursor.execute("SELECT * FROM pode_pousar")
+        linhas = self.my_cursor.fetchall()
+        return linhas
+
+
+    def adicionar_pode_pousar(self, Nome_tipo_aeronave, Codigo_aeroporto):
+        self.my_cursor.execute("INSERT INTO pode_pousar VALUES (%s, %s)", (Nome_tipo_aeronave, Codigo_aeroporto))
+        self.db.commit()
+
+
+    def remover_pode_pousar(self, Nome_tipo_aeronave, Codigo_aeroporto):
+        self.my_cursor.execute("DELETE FROM pode_pousar WHERE Nome_tipo_aeronave=%s AND Codigo_aeroporto=%s",(Nome_tipo_aeronave, Codigo_aeroporto))
+
 
     #metodos referente a Tabela instancia_trecho
 
