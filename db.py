@@ -97,8 +97,8 @@ class Database:
         self.db.commit()
 
 
-    def remover_tarifa(self, Codigo_tarifa):
-        self.my_cursor.execute("DELETE FROM tarifa WHERE Codigo_tarifa = %s", (Codigo_tarifa,))
+    def remover_tarifa(self, Numero_voo, Codigo_tarifa):
+        self.my_cursor.execute("DELETE FROM tarifa WHERE Numero_voo = %s AND Codigo_tarifa = %s", (Numero_voo, Codigo_tarifa))
         self.db.commit()
 
 

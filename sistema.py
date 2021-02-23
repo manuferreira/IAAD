@@ -28,24 +28,23 @@ voo.grid(row=20, column=1, padx=10)
 trecho = Button(root, text="Dados dos Trechos", command=tabela_trecho)
 trecho.grid(row=20, column=2, padx=10)
 
-
 tarifa = Button(root, text="Dados tarifa", command=tabela_tarifa)
 tarifa.grid(row=20, column=3, padx=10)
 
 tipo_aeronave = Button(root, text="Dados do tipo de aeronave", command=tabela_tipo_aeronave)
-tipo_aeronave.grid(row=20, column=4, padx=10)
+tipo_aeronave.grid(row=21, column=0, padx=10)
 
 pode_pousar = Button(root, text="Dados sobre o pouso", command=tabela_pode_pousar)
-pode_pousar.grid(row=20, column=5, padx=10)
+pode_pousar.grid(row=21, column=1, padx=10)
 
 instancia_trecho = Button(root, text="Dados das Instancias dos Trechos", command=tabela_instancia_trecho)
-instancia_trecho.grid(row=20, column=3, padx=10)
+instancia_trecho.grid(row=21, column=2, padx=10)
 
 aeronave = Button(root, text="Dados das Aeronaves", command=tabela_aeronave)
-aeronave.grid(row=21, column=0, padx=10, pady=10)
+aeronave.grid(row=21, column=3, padx=10, pady=10)
 
 reserva_assento = Button(root, text="Dados das Reserva dos Assentos", command=tabela_reserva_assento)
-reserva_assento.grid(row=21, column=1, padx=10, pady=10)
+reserva_assento.grid(row=21, column=4, padx=10, pady=10)
 
 root.mainloop()
 mydb.encerrar_conexao()

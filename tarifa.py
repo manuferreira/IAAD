@@ -16,6 +16,24 @@ def tabela_tarifa():
         for linha in popular:
             lista_tarifa.insert(END, linha)
 
+    def selecionar_item(event):
+        try:
+            global item_selecionado
+            indice = lista_tarifa.curselection()[0]
+            item_selecionado = lista_tarifa.get(indice)
+            #colocar os dados selecionados dentro das entries, primeiro deleta dos campos e depois adiciona
+            add_numero_voo_tarifa.delete(0, END)
+            add_numero_voo_tarifa.insert(END, item_selecionado[0])
+            add_codigo_tarifa.delete(0, END)
+            add_codigo_tarifa.insert(END, item_selecionado[1])
+            add_quantidade.delete(0, END)
+            add_quantidade.insert(END, item_selecionado[2])
+            add_restricoes.delete(0, END)
+            add_restricoes.insert(END, item_selecionado[3])
+        except IndexError:
+            pass
+
+
     def add_tarifa():
         if add_numero_voo_tarifa.get() == '' or add_codigo_tarifa.get() == '' or add_quantidade.get() == '' or add_restricoes.get() == '':
             messagebox.showerror('Preencha todos os campos')
@@ -29,7 +47,7 @@ def tabela_tarifa():
         populate_list()
         
     def remove_tarifa():
-        mydb.remover_tarifa(item_selecionado[1])
+        mydb.remover_tarifa(item_selecionado[0], item_selecionado[1])
         limpar_tarifa()
         populate_list()
 

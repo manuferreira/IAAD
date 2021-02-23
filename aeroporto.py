@@ -55,11 +55,13 @@ def tabela_aeroporto():
         mydb.atualizar_aeroportos(item_selecionado[0], add_nome.get(), add_cidade.get(), add_estado.get())
         populate_list()
 
+
     def limpar_aeroporto():
         add_codigo.delete(0, END)
         add_nome.delete(0, END)
         add_cidade.delete(0, END)
         add_estado.delete(0, END)
+    
     
     def mostrar_reserva():
         passagem = Tk()
