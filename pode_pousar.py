@@ -1,4 +1,5 @@
 from tkinter import *
+from tkinter import ttk
 from tkinter import messagebox
 from db import *
 
@@ -22,21 +23,21 @@ def tabela_pode_pousar():
             global item_selecionado
             indice = lista_pode_pousar.curselection()[0]
             item_selecionado = lista_pode_pousar.get(indice)
-            add_nome_tipo_aeronave.delete(0, END)
-            add_nome_tipo_aeronave.insert(END, item_selecionado[0])
-            add_codigo_aeroporto.delete(0, END)
-            add_codigo_aeroporto.insert(END, item_selecionado[1])
+            combo_tipo_aeronave.delete(0, END)
+            combo_tipo_aeronave.insert(END, item_selecionado[0])
+            combo_codigo_aeroporto.delete(0, END)
+            combo_codigo_aeroporto.insert(END, item_selecionado[1])
         except IndexError:
             pass
 
 
     def add_pouso():
-        if add_nome_tipo_aeronave.get() == '' or add_codigo_aeroporto.get() == '':
+        if combo_tipo_aeronave.get() == '' or combo_codigo_aeroporto.get() == '':
             messagebox.showerror('Preencha todos os campos')
             return
-        mydb.adicionar_pode_pousar(add_nome_tipo_aeronave.get(), add_codigo_aeroporto.get())
+        mydb.adicionar_pode_pousar(combo_tipo_aeronave.get(), combo_codigo_aeroporto.get())
         lista_pode_pousar.delete(0, END)
-        lista_pode_pousar.insert(END, (add_nome_tipo_aeronave.get(), add_codigo_aeroporto.get()))
+        lista_pode_pousar.insert(END, (combo_tipo_aeronave.get(), combo_codigo_aeroporto.get()))
         limpar_pode_pousar()
         populate_list()
 
@@ -48,8 +49,8 @@ def tabela_pode_pousar():
 
 
     def limpar_pode_pousar():
-        add_nome_tipo_aeronave.delete(0, END)
-        add_codigo_aeroporto.delete(0, END)
+        combo_tipo_aeronave.delete(0, END)
+        combo_codigo_aeroporto.delete(0, END)
 
 
     adicionar_pouso = Button(
@@ -64,12 +65,24 @@ def tabela_pode_pousar():
         pode_pousar, text="Limpar campos", command=limpar_pode_pousar)
     limpar_campo_pode_pousar.grid(row=8, column=2, padx=10, pady=10)
 
-    #caixas de texto:
-    add_nome_tipo_aeronave = Entry(pode_pousar, width=30)
-    add_nome_tipo_aeronave.grid(row=0, column=1, padx=20)
 
-    add_codigo_aeroporto = Entry(pode_pousar, width=30)
-    add_codigo_aeroporto.grid(row=1, column=1, padx=20)
+    #caixas de texto:
+    results = mydb.mostrar_primary_key_tipo_aeronave()
+    results_for_combobox = [result for result in results]
+    combo_tipo_aeronave = ttk.Combobox(pode_pousar, values=results_for_combobox, width=27)
+    combo_tipo_aeronave.grid(row=0, column=1, padx=20)
+
+    # add_nome_tipo_aeronave = Entry(pode_pousar, width=30)
+    # add_nome_tipo_aeronave.grid(row=0, column=1, padx=20)
+
+    results = mydb.mostrar_primary_key_aeroporto()
+    results_for_combobox = [result for result in results]
+    combo_codigo_aeroporto = ttk.Combobox(
+        pode_pousar, values=results_for_combobox, width=27)
+    combo_codigo_aeroporto.grid(row=1, column=1, padx=20)
+
+    # add_codigo_aeroporto = Entry(pode_pousar, width=30)
+    # add_codigo_aeroporto.grid(row=1, column=1, padx=20)
 
 
     #labels pras caixas de texto

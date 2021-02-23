@@ -16,6 +16,11 @@ class Database:
         self.my_cursor.execute("SELECT * FROM aeroporto")
         linhas = self.my_cursor.fetchall()
         return linhas
+
+    def mostrar_primary_key_aeroporto(self):
+        self.my_cursor.execute("SELECT Codigo_aeroporto FROM aeroporto")
+        linhas = self.my_cursor.fetchall()
+        return linhas
     
     def mostrar_passagens(self):
         self.my_cursor.execute("""SELECT Nome_cliente, Dia_da_semana, Companhia_aerea, Horario_partida, Horario_chegada, Numero_assento, Nome, Codigo_aeroporto_chegada 
@@ -45,7 +50,7 @@ class Database:
         self.my_cursor.execute("SELECT * FROM voo")
         linhas = self.my_cursor.fetchall()
         return linhas
-        
+
 
     def mostrar_primary_key_voo(self):
         self.my_cursor.execute("SELECT Numero_voo FROM voo")
@@ -116,6 +121,11 @@ class Database:
 # Métodos referentes a tabela tipo_aeronave 
     def mostrar_tipo_aeronave(self):
         self.my_cursor.execute("SELECT * FROM tipo_aeronave")
+        linhas = self.my_cursor.fetchall()
+        return linhas
+
+    def mostrar_primary_key_tipo_aeronave(self):
+        self.my_cursor.execute("SELECT Nome_tipo_aeronave FROM tipo_aeronave")
         linhas = self.my_cursor.fetchall()
         return linhas
 
