@@ -1,5 +1,6 @@
 from tkinter import *
 from tkinter import messagebox
+from tkinter import ttk
 from db import *
 
 mydb = Database()
@@ -10,11 +11,13 @@ def tabela_tarifa():
     tarifa.title("Tarifa")
     tarifa.geometry("700x350")
 
+
     def populate_list():
         lista_tarifa.delete(0, END)
         popular = mydb.mostrar_tarifas()
         for linha in popular:
             lista_tarifa.insert(END, linha)
+
 
     def selecionar_item(event):
         try:
@@ -22,8 +25,10 @@ def tabela_tarifa():
             indice = lista_tarifa.curselection()[0]
             item_selecionado = lista_tarifa.get(indice)
             #colocar os dados selecionados dentro das entries, primeiro deleta dos campos e depois adiciona
-            add_numero_voo_tarifa.delete(0, END)
-            add_numero_voo_tarifa.insert(END, item_selecionado[0])
+            combotarifa.delete(0, END)
+            combotarifa.insert(END, item_selecionado[0])
+            # add_numero_voo_tarifa.delete(0, END)
+            # add_numero_voo_tarifa.insert(END, item_selecionado[0])
             add_codigo_tarifa.delete(0, END)
             add_codigo_tarifa.insert(END, item_selecionado[1])
             add_quantidade.delete(0, END)
@@ -35,16 +40,17 @@ def tabela_tarifa():
 
 
     def add_tarifa():
-        if add_numero_voo_tarifa.get() == '' or add_codigo_tarifa.get() == '' or add_quantidade.get() == '' or add_restricoes.get() == '':
+        if combotarifa.get() == '' or add_codigo_tarifa.get() == '' or add_quantidade.get() == '' or add_restricoes.get() == '':
             messagebox.showerror('Preencha todos os campos')
             return
-        mydb.inserir_tarifa(add_numero_voo_tarifa.get(), add_codigo_tarifa.get(), add_quantidade.get(
+        mydb.inserir_tarifa(combotarifa.get(), add_codigo_tarifa.get(), add_quantidade.get(
         ), add_restricoes.get())  
         lista_tarifa.delete(0, END)  
-        lista_tarifa.insert(END, (add_numero_voo_tarifa.get(), add_codigo_tarifa.get(), add_quantidade.get(
+        lista_tarifa.insert(END, (combotarifa.get(), add_codigo_tarifa.get(), add_quantidade.get(
         ), add_restricoes.get())) 
         limpar_tarifa()
         populate_list()
+
         
     def remove_tarifa():
         mydb.remover_tarifa(item_selecionado[0], item_selecionado[1])
@@ -59,7 +65,8 @@ def tabela_tarifa():
 
 
     def limpar_tarifa():
-        add_numero_voo_tarifa.delete(0, END)
+        combotarifa.delete(0, END)
+        # add_numero_voo_tarifa.delete(0, END)
         add_codigo_tarifa.delete(0, END)
         add_quantidade.delete(0, END)
         add_restricoes.delete(0, END)
@@ -84,8 +91,14 @@ def tabela_tarifa():
 
 
     #caixas de texto:
-    add_numero_voo_tarifa = Entry(tarifa, width=30)
-    add_numero_voo_tarifa.grid(row=0, column=1, padx=20)
+
+    results = mydb.mostrar_primary_key_voo()
+    results_for_combobox = [result for result in results]
+    combotarifa = ttk.Combobox(tarifa, values=results_for_combobox, width=27)
+    combotarifa.grid(row=0, column=1)
+
+    # add_numero_voo_tarifa = Entry(tarifa, width=30)
+    # add_numero_voo_tarifa.grid(row=0, column=1, padx=20)
 
     add_codigo_tarifa = Entry(tarifa, width=30)
     add_codigo_tarifa.grid(row=1, column=1, padx=20)

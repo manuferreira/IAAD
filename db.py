@@ -45,6 +45,12 @@ class Database:
         self.my_cursor.execute("SELECT * FROM voo")
         linhas = self.my_cursor.fetchall()
         return linhas
+        
+
+    def mostrar_primary_key_voo(self):
+        self.my_cursor.execute("SELECT Numero_voo FROM voo")
+        linhas = self.my_cursor.fetchall()
+        return linhas
 
 
     def inserir_voo(self, Numero_voo, Companhia_aerea, Dia_da_semana):
