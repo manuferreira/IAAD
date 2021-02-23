@@ -69,7 +69,8 @@ def tabela_pode_pousar():
     #caixas de texto:
     results = mydb.mostrar_primary_key_tipo_aeronave()
     results_for_combobox = [result for result in results]
-    combo_tipo_aeronave = ttk.Combobox(pode_pousar, values=results_for_combobox, width=27)
+    combo_tipo_aeronave = ttk.Combobox(
+        pode_pousar, values=results_for_combobox, width=27)
     combo_tipo_aeronave.grid(row=0, column=1, padx=20)
 
     # add_nome_tipo_aeronave = Entry(pode_pousar, width=30)
