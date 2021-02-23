@@ -62,7 +62,7 @@ class Database:
         self.db.commit()
 
 
-    metodos referente a Tabela trecho_voo
+    #metodos referentes a Tabela trecho_voo
 
     def mostrar_trecho_voo(self):
         self.my_cursor.execute("SELECT * FROM trecho_voo")
