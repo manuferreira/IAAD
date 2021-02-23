@@ -62,7 +62,7 @@ class Database:
         self.db.commit()
 
 
-    metodos referente a Tabela trecho_voo
+    #metodos referente a Tabela trecho_voo
 
     def mostrar_trecho_voo(self):
         self.my_cursor.execute("SELECT * FROM trecho_voo")
@@ -155,7 +155,7 @@ class Database:
         return linhas
 
     def inserir_instancia_trecho(self, Numero_trecho, Numero_voo, Data, Numero_assentos, Codigo_aeronave, Codigo_aeroporto_partida, Codigo_aeroporto_chegada, Horario_partida, Horario_chegada):
-        self.my_cursor.execute("INSERT INTO instancia_trecho VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)", (Numero_trecho, Numero_voo, Data, Numero_assentos, Codigo_aeronave, Codigo_aeroporto_partida, Codigo_aeroporto_chegada, Horario_partida, Horario_chegada))
+        self.my_cursor.execute("INSERT INTO instancia_trecho VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)", (Numero_voo, Numero_trecho, Data, Numero_assentos, Codigo_aeronave, Codigo_aeroporto_partida, Codigo_aeroporto_chegada, Horario_partida, Horario_chegada))
         self.db.commit()
 
 
@@ -164,10 +164,50 @@ class Database:
         self.db.commit()
 
 
-    def atualizar_instancia_trecho(self, Numero_trecho, Numero_voo, Data, Numero_assentos, Codigo_aeronave, Codigo_aeroporto_partida, Codigo_aeroporto_chegada, Horario_partida_previsto, Horario_chegada_previsto):
+    def atualizar_instancia_trecho(self, Numero_trecho, Numero_voo, Data, Numero_assentos, Codigo_aeronave, Codigo_aeroporto_partida, Codigo_aeroporto_chegada, Horario_partida, Horario_chegada):
         self.my_cursor.execute("UPDATE instancia_trecho SET Numero_assentos=%s, Codigo_aeronave=%s Codigo_aeroporto_partida=%s, Codigo_aeroporto_chegada=%s, Horario_partida=%s, Horario_chegada=%s WHERE Numero_voo = %s AND Numero_trecho=%s AND Data=%s,", ( Numero_assentos, Codigo_aeronave, Codigo_aeroporto_partida, Codigo_aeroporto_chegada, Horario_partida, Horario_chegada, Numero_voo, Numero_trecho, Data))
         self.db.commit()
 
+    #métodos referentes a tabela aeronave
+    def mostrar_aeronave(self):
+        self.my_cursor.execute("SELECT * FROM aeronave")
+        linhas = self.my_cursor.fetchall()
+        return linhas
+
+    def inserir_aeronave(self, Codigo_aeronave, Numero_total_assentos, Tipo_aeronave):
+        self.my_cursor.execute("INSERT INTO aeronave VALUES (%s, %s, %s)", (Codigo_aeronave, Numero_total_assentos, Tipo_aeronave))
+        self.db.commit()
+
+
+    def remover_aeronave(self, Codigo_aeronave):
+        self.my_cursor.execute("DELETE FROM aeronave WHERE Codigo_aeronave = %s", (Codigo_aeronave,))
+        self.db.commit()
+
+
+    def atualizar_aeronave(self, Codigo_aeronave, Numero_total_assentos, Tipo_aeronave):
+        self.my_cursor.execute("UPDATE aeronave SET Numero_total_assentos=%s, Tipo_aeronave=%s WHERE Codigo_aeronave=%s", (Numero_total_assentos, Tipo_aeronave, Codigo_aeronave))
+        self.db.commit()    
+    
+    #metodos referente a Tabela reserva_assento
+
+    def mostrar_reserva_assento(self):
+        self.my_cursor.execute("SELECT * FROM reserva_assento")
+        linhas = self.my_cursor.fetchall()
+        return linhas
+
+    def inserir_reserva_assento(self, Numero_trecho, Numero_voo, Data, Numero_assento, Nome_cliente, Telefone_cliente):
+        self.my_cursor.execute("INSERT INTO reserva_assento VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)", (Numero_trecho, Numero_voo, Data, Numero_assento, Nome_cliente, Telefone_cliente))
+        self.db.commit()
+
+
+    def remover_reserva_assento(self, Numero_trecho):
+        self.my_cursor.execute("DELETE FROM reserva_assento WHERE Numero_trecho = %s", (Numero_trecho,))
+        self.db.commit()
+
+
+    def atualizar_reserva_assento(self, Numero_trecho, Numero_voo, Data, Numero_assento, Nome_cliente, Telefone_cliente):
+        self.my_cursor.execute("UPDATE reserva_assento SET Numero_assentos=%s, Nome_cliente=%s Telefone_cliente=%s WHERE Numero_voo = %s AND Numero_trecho=%s AND Data=%s,", ( Numero_assento, Nome_cliente, Telefone_cliente, Numero_voo, Numero_trecho, Data))
+        self.db.commit()
 
     def encerrar_conexao(self): #fecha a conexão com o banco
         self.db.close()
