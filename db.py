@@ -74,9 +74,13 @@ class Database:
 
 
     #metodos referentes a Tabela trecho_voo
-
     def mostrar_trecho_voo(self):
         self.my_cursor.execute("SELECT * FROM trecho_voo")
+        linhas = self.my_cursor.fetchall()
+        return linhas
+
+    def mostrar_pk_trecho_voo(self):
+        self.my_cursor.execute("SELECT Numero_trecho from trecho_voo")
         linhas = self.my_cursor.fetchall()
         return linhas
 
@@ -163,12 +167,17 @@ class Database:
         self.my_cursor.execute("DELETE FROM pode_pousar WHERE Nome_tipo_aeronave=%s AND Codigo_aeroporto=%s",(Nome_tipo_aeronave, Codigo_aeroporto))
 
 
-    #metodos referente a Tabela instancia_trecho
-
+    #metodos referentes a Tabela instancia_trecho
     def mostrar_instancia_trecho(self):
         self.my_cursor.execute("SELECT * FROM instancia_trecho")
         linhas = self.my_cursor.fetchall()
         return linhas
+
+    def mostrar_pk_instancia_trecho(self):
+        self.my_cursor.execute("SELECT Data from instancia_trecho")
+        linhas = self.my_cursor.fetchall()
+        return linhas
+
 
     def inserir_instancia_trecho(self, Numero_trecho, Numero_voo, Data, Numero_assentos, Codigo_aeronave, Codigo_aeroporto_partida, Codigo_aeroporto_chegada, Horario_partida, Horario_chegada):
         self.my_cursor.execute("INSERT INTO instancia_trecho VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)", (Numero_voo, Numero_trecho, Data, Numero_assentos, Codigo_aeronave, Codigo_aeroporto_partida, Codigo_aeroporto_chegada, Horario_partida, Horario_chegada))
@@ -204,25 +213,27 @@ class Database:
         self.my_cursor.execute("UPDATE aeronave SET Numero_total_assentos=%s, Tipo_aeronave=%s WHERE Codigo_aeronave=%s", (Numero_total_assentos, Tipo_aeronave, Codigo_aeronave))
         self.db.commit()    
     
-    #metodos referente a Tabela reserva_assento
 
+    #metodos referentes a Tabela reserva_assento
     def mostrar_reserva_assento(self):
         self.my_cursor.execute("SELECT * FROM reserva_assento")
         linhas = self.my_cursor.fetchall()
         return linhas
 
-    def inserir_reserva_assento(self, Numero_trecho, Numero_voo, Data, Numero_assento, Nome_cliente, Telefone_cliente):
-        self.my_cursor.execute("INSERT INTO reserva_assento VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)", (Numero_trecho, Numero_voo, Data, Numero_assento, Nome_cliente, Telefone_cliente))
+    def inserir_reserva_assento(self, Numero_voo, Numero_trecho, Data, Numero_assento, Nome_cliente, Telefone_cliente):
+        self.my_cursor.execute("INSERT INTO reserva_assento VALUES (%s, %s, %s, %s, %s, %s)",(
+            Numero_voo, Numero_trecho,  Data, Numero_assento, Nome_cliente, Telefone_cliente))
         self.db.commit()
 
 
-    def remover_reserva_assento(self, Numero_trecho):
-        self.my_cursor.execute("DELETE FROM reserva_assento WHERE Numero_trecho = %s", (Numero_trecho,))
+    def remover_reserva_assento(self, Numero_voo, Numero_trecho, Data, Numero_assento):
+        self.my_cursor.execute(
+            "DELETE FROM reserva_assento WHERE Numero_voo=%s AND Numero_trecho = %s AND Data=%s AND Numero_assento=%s", (Numero_voo, Numero_trecho, Data, Numero_assento))
         self.db.commit()
 
 
-    def atualizar_reserva_assento(self, Numero_trecho, Numero_voo, Data, Numero_assento, Nome_cliente, Telefone_cliente):
-        self.my_cursor.execute("UPDATE reserva_assento SET Numero_assentos=%s, Nome_cliente=%s Telefone_cliente=%s WHERE Numero_voo = %s AND Numero_trecho=%s AND Data=%s,", ( Numero_assento, Nome_cliente, Telefone_cliente, Numero_voo, Numero_trecho, Data))
+    def atualizar_reserva_assento(self, Numero_voo, Numero_trecho, Data, Numero_assento, Nome_cliente, Telefone_cliente):
+        self.my_cursor.execute("UPDATE reserva_assento SET Numero_assento=%s, Nome_cliente=%s Telefone_cliente=%s WHERE Numero_voo= %s AND Numero_trecho=%s AND Data=%s", ( Numero_assento, Nome_cliente, Telefone_cliente, Numero_voo, Numero_trecho, Data))
         self.db.commit()
 
     def encerrar_conexao(self): #fecha a conexão com o banco
