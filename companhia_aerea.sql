@@ -107,8 +107,7 @@ INSERT INTO aeronave VALUES
     ('11115','30','Jatinho'),
     ('22225','120','Boing'),
     ('33335','3','Foguete'),
-    ('44445','1000','Teleporte'),
-    ('55555', '50', 'AirBus');
+    ('44445','1000','Teleporte');
     
 INSERT INTO instancia_trecho VALUES
     ('111116',1,'2021/01/01','20','11115','10001','11:11','20002','00:00'),
@@ -147,6 +146,4 @@ ALTER TABLE tarifa ADD FOREIGN KEY(Numero_voo) REFERENCES voo(Numero_voo) ON DEL
 ALTER TABLE pode_pousar ADD FOREIGN KEY(Nome_tipo_aeronave) REFERENCES tipo_aeronave(Nome_tipo_aeronave) ON DELETE CASCADE ON UPDATE CASCADE;
 ALTER TABLE pode_pousar ADD FOREIGN KEY(Codigo_aeroporto) REFERENCES aeroporto(Codigo_aeroporto) ON DELETE CASCADE ON UPDATE CASCADE;
 ALTER TABLE aeronave ADD FOREIGN KEY(Tipo_aeronave) REFERENCES tipo_aeronave(Nome_tipo_aeronave) ON DELETE CASCADE ON UPDATE CASCADE;
-ALTER TABLE reserva_assento ADD FOREIGN KEY(Numero_voo) REFERENCES voo(Numero_voo) ON DELETE CASCADE ON UPDATE CASCADE;
-ALTER TABLE reserva_assento ADD FOREIGN KEY(Numero_trecho) REFERENCES trecho_voo(Numero_trecho) ON DELETE CASCADE ON UPDATE CASCADE;
-ALTER TABLE reserva_assento ADD FOREIGN KEY(Data) REFERENCES instancia_trecho(Data) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE reserva_assento ADD FOREIGN KEY(Numero_voo, Numero_trecho, Data) REFERENCES instancia_trecho(Numero_voo, Numero_trecho, Data) ON DELETE CASCADE ON UPDATE CASCADE;
