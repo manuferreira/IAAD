@@ -27,10 +27,10 @@ def tabela_trecho():
             add_numero_trecho.insert(END, item_selecionado[0])
             combo_numero_voo.delete(0, END)
             combo_numero_voo.insert(END, item_selecionado[1])
-            add_codigo_aeroporto_p.delete(0, END)
-            add_codigo_aeroporto_p.insert(END, item_selecionado[2])
-            add_codigo_aeroporto_c.delete(0, END)
-            add_codigo_aeroporto_c.insert(END, item_selecionado[3])
+            combo_aeroporto_p.delete(0, END)
+            combo_aeroporto_p.insert(END, item_selecionado[2])
+            combo_aeroporto_c.delete(0, END)
+            combo_aeroporto_c.insert(END, item_selecionado[3])
             add_horario_partida.delete(0, END)
             add_horario_partida.insert(END, item_selecionado[4])
             add_horario_chegada.delete(0, END)
@@ -40,15 +40,15 @@ def tabela_trecho():
 
 
     def add_trecho():
-        if add_numero_trecho.get() == '' or combo_numero_voo.get() == '' or add_codigo_aeroporto_p.get() == '' or add_codigo_aeroporto_c.get() == '' or add_horario_partida.get() == '' or add_horario_chegada.get() == '':
+        if add_numero_trecho.get() == '' or combo_numero_voo.get() == '' or combo_aeroporto_p.get() == '' or combo_aeroporto_c.get() == '' or add_horario_partida.get() == '' or add_horario_chegada.get() == '':
             messagebox.showerror('Preencha todos os campos')
             return
 
         # apenas adiciona ao database, não insere na lista
-        mydb.inserir_trecho_voo(add_numero_trecho.get(), combo_numero_voo.get(), add_codigo_aeroporto_p.get(), add_codigo_aeroporto_c.get(), add_horario_partida.get(), add_horario_chegada.get())
+        mydb.inserir_trecho_voo(add_numero_trecho.get(), combo_numero_voo.get(), combo_aeroporto_p.get(), combo_aeroporto_c.get(), add_horario_partida.get(), add_horario_chegada.get())
 
         lista_trecho.delete(0, END) #limpa os dados da lista
-        lista_trecho.insert(END,(add_numero_trecho.get(), combo_numero_voo.get(), add_codigo_aeroporto_p.get(), add_codigo_aeroporto_c.get(), add_horario_partida.get(), add_horario_chegada.get())) #insere na lista o dado que foi adicionado
+        lista_trecho.insert(END,(add_numero_trecho.get(), combo_numero_voo.get(), combo_aeroporto_p.get(), combo_aeroporto_c.get(), add_horario_partida.get(), add_horario_chegada.get())) #insere na lista o dado que foi adicionado
         limpar_trecho()
         populate_list()
 
@@ -60,16 +60,16 @@ def tabela_trecho():
 
 
     def update_trecho():
-        mydb.atualizar_trecho_voo(item_selecionado[0], item_selecionado[1], add_codigo_aeroporto_p.get(
-        ), add_codigo_aeroporto_c.get(), add_horario_partida.get(), add_horario_chegada.get())
+        mydb.atualizar_trecho_voo(item_selecionado[0], item_selecionado[1], combo_aeroporto_p.get(
+        ), combo_aeroporto_c.get(), add_horario_partida.get(), add_horario_chegada.get())
         populate_list()
 
 
     def limpar_trecho():
         add_numero_trecho.delete(0, END)
         combo_numero_voo.delete(0, END)
-        add_codigo_aeroporto_p.delete(0, END)
-        add_codigo_aeroporto_c.delete(0, END)
+        combo_aeroporto_p.delete(0, END)
+        combo_aeroporto_c.delete(0, END)
         add_horario_partida.delete(0, END)
         add_horario_chegada.delete(0, END)
 
@@ -94,18 +94,27 @@ def tabela_trecho():
     add_numero_trecho.grid(row=0, column=1, padx=20)
 
 
-    results = mydb.mostrar_primary_key_voo()
-    combo_results = [result for result in results]
-    combo_numero_voo = ttk.Combobox(trecho, values=combo_results, width=27)
+    results_1 = mydb.mostrar_primary_key_voo()
+    combo_results_1 = [result for result in results_1]
+    combo_numero_voo = ttk.Combobox(trecho, values=combo_results_1, width=27)
     combo_numero_voo.grid(row=1, column=1, padx=20)
     # add_numero_voo = Entry(trecho, width=30)
     # add_numero_voo.grid(row=0, column=1, padx=20)
 
-    add_codigo_aeroporto_p = Entry(trecho, width=30)
-    add_codigo_aeroporto_p.grid(row=2, column=1, padx=20)
+    results_2 = mydb.mostrar_primary_key_aeroporto()
+    combo_results_2 = [result for result in results_2]
+    combo_aeroporto_p = ttk.Combobox(trecho, values=combo_results_2, width=27)
+    combo_aeroporto_p.grid(row=2, column=1, padx=20)
+    # add_codigo_aeroporto_p = Entry(trecho, width=30)
+    # add_codigo_aeroporto_p.grid(row=2, column=1, padx=20)
 
-    add_codigo_aeroporto_c = Entry(trecho, width=30)
-    add_codigo_aeroporto_c.grid(row=3, column=1, padx=20)
+
+    results_3 = mydb.mostrar_primary_key_aeroporto()
+    combo_results_3 = [result for result in results_3]
+    combo_aeroporto_c = ttk.Combobox(trecho, values=combo_results_3, width=27)
+    combo_aeroporto_c.grid(row=3, column=1, padx=20)
+    # add_codigo_aeroporto_c = Entry(trecho, width=30)
+    # add_codigo_aeroporto_c.grid(row=3, column=1, padx=20)
 
     add_horario_partida = Entry(trecho, width=30)
     add_horario_partida.grid(row=4, column=1, padx=20)

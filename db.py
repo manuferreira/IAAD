@@ -181,24 +181,30 @@ class Database:
         linhas = self.my_cursor.fetchall()
         return linhas
 
-
-    def inserir_instancia_trecho(self, Numero_trecho, Numero_voo, Data, Numero_assentos, Codigo_aeronave, Codigo_aeroporto_partida, Codigo_aeroporto_chegada, Horario_partida, Horario_chegada):
-        self.my_cursor.execute("INSERT INTO instancia_trecho VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)", (Numero_voo, Numero_trecho, Data, Numero_assentos, Codigo_aeronave, Codigo_aeroporto_partida, Codigo_aeroporto_chegada, Horario_partida, Horario_chegada))
+    def inserir_instancia_trecho(self, Numero_voo, Numero_trecho, Data, Numero_assentos, Codigo_aeronave, Codigo_aeroporto_partida, Horario_partida, Codigo_aeroporto_chegada,  Horario_chegada):
+        self.my_cursor.execute("INSERT INTO instancia_trecho VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)", (Numero_voo, Numero_trecho,
+                                                                                                            Data, Numero_assentos, Codigo_aeronave, Codigo_aeroporto_partida, Horario_partida, Codigo_aeroporto_chegada, Horario_chegada))
         self.db.commit()
 
 
-    def remover_instancia_trecho(self, Numero_trecho):
-        self.my_cursor.execute("DELETE FROM instancia_trecho WHERE Numero_trecho = %s", (Numero_trecho,))
+    def remover_instancia_trecho(self, Numero_voo, Numero_trecho, Data):
+        self.my_cursor.execute("DELETE FROM instancia_trecho WHERE Numero_voo=%s AND Numero_trecho = %s AND Data=%s", (Numero_voo, Numero_trecho, Data))
         self.db.commit()
 
-
-    def atualizar_instancia_trecho(self, Numero_trecho, Numero_voo, Data, Numero_assentos, Codigo_aeronave, Codigo_aeroporto_partida, Codigo_aeroporto_chegada, Horario_partida, Horario_chegada):
-        self.my_cursor.execute("UPDATE instancia_trecho SET Numero_assentos=%s, Codigo_aeronave=%s Codigo_aeroporto_partida=%s, Codigo_aeroporto_chegada=%s, Horario_partida=%s, Horario_chegada=%s WHERE Numero_voo = %s AND Numero_trecho=%s AND Data=%s,", ( Numero_assentos, Codigo_aeronave, Codigo_aeroporto_partida, Codigo_aeroporto_chegada, Horario_partida, Horario_chegada, Numero_voo, Numero_trecho, Data))
+    def atualizar_instancia_trecho(self, Numero_voo, Numero_trecho, Data, Numero_assentos, Codigo_aeronave, Codigo_aeroporto_partida, Horario_partida, Codigo_aeroporto_chegada,  Horario_chegada):
+        self.my_cursor.execute("UPDATE instancia_trecho SET Numero_assentos=%s, Codigo_aeronave=%s Codigo_aeroporto_partida=%s, Horario_partida=%s,Codigo_aeroporto_chegada=%s, Horario_chegada=%s WHERE Numero_voo = %s AND Numero_trecho=%s AND Data=%s,",
+                               (Numero_assentos, Codigo_aeronave, Codigo_aeroporto_partida,Horario_partida, Codigo_aeroporto_chegada, Horario_chegada, Numero_voo, Numero_trecho, Data))
         self.db.commit()
+
 
     #métodos referentes a tabela aeronave
     def mostrar_aeronave(self):
         self.my_cursor.execute("SELECT * FROM aeronave")
+        linhas = self.my_cursor.fetchall()
+        return linhas
+
+    def mostrar_pk_aeronave(self):
+        self.my_cursor.execute("SELECT Codigo_aeronave FROM aeronave")
         linhas = self.my_cursor.fetchall()
         return linhas
 
