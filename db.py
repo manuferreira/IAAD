@@ -176,8 +176,18 @@ class Database:
         linhas = self.my_cursor.fetchall()
         return linhas
 
-    def mostrar_pk_instancia_trecho(self):
+    def pk_instancia_trecho_data(self):
         self.my_cursor.execute("SELECT Data from instancia_trecho")
+        linhas = self.my_cursor.fetchall()
+        return linhas
+
+    def pk_instancia_trecho_num_voo(self):
+        self.my_cursor.execute("SELECT Numero_voo from instancia_trecho")
+        linhas = self.my_cursor.fetchall()
+        return linhas
+
+    def pk_instancia_trecho_num_trecho(self):
+        self.my_cursor.execute("SELECT Numero_trecho from instancia_trecho")
         linhas = self.my_cursor.fetchall()
         return linhas
 

@@ -92,7 +92,7 @@ def tabela_reserva_assento():
 
 
     #caixas de texto:
-    results = mydb.mostrar_primary_key_voo()
+    results = mydb.pk_instancia_trecho_num_voo()
     results_for_combobox = [result for result in results]
     combo_numero_voo = ttk.Combobox(
         reserva_assento, values=results_for_combobox, width=27)
@@ -101,7 +101,7 @@ def tabela_reserva_assento():
     # add_numero_voo = Entry(reserva_assento, width=30)
     # add_numero_voo.grid(row=1, column=1, padx=20)
 
-    results = mydb.mostrar_pk_trecho_voo()
+    results = mydb.pk_instancia_trecho_num_trecho()
     results_for_combobox = [result for result in results]
     combo_numero_trecho = ttk.Combobox(
         reserva_assento, values=results_for_combobox, width=27)
@@ -110,7 +110,7 @@ def tabela_reserva_assento():
     # add_numero_trecho = Entry(reserva_assento, width=30)
     # add_numero_trecho.grid(row=0, column=1, padx=20)
 
-    results = mydb.mostrar_pk_instancia_trecho()
+    results = mydb.pk_instancia_trecho_data()
     results_for_combobox = [result for result in results]
     combo_data = ttk.Combobox(reserva_assento, values=results_for_combobox, width=27)
     combo_data.grid(row=2, column=1, padx=20)
