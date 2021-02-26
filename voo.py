@@ -121,3 +121,4 @@ def tabela_voo():
     lista_voo.bind('<<ListboxSelect>>', selecionar_item)
 
     populate_list()
+    voo.mainloop()

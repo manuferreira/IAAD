@@ -169,3 +169,4 @@ def tabela_reserva_assento():
     lista_reserva_assento.bind('<<ListboxSelect>>', selecionar_item)
 
     populate_list()    
+    reserva_assento.mainloop()

@@ -164,3 +164,4 @@ def tabela_trecho():
     lista_trecho.bind('<<ListboxSelect>>', selecionar_item)
 
     populate_list()
+    trecho.mainloop()

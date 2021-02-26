@@ -146,3 +146,4 @@ def tabela_tarifa():
     lista_tarifa.bind('<<ListboxSelect>>', selecionar_item)
 
     populate_list()
+    tarifa.mainloop()
