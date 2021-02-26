@@ -80,16 +80,16 @@ CREATE TABLE reserva_assento(
 
 /*INSERINDO NAS TABELAS*/
 INSERT INTO aeroporto VALUES 
-    ('10001','AEROPORTO DE MANUSSA','HELLCIFE','PE'),
-    ('30003','AEROPORTO DE RENATO', 'ORLINDA','MG'),
-    ('15030', 'AEROPORTO DE VICTOR', 'CAMARABRIGE','TI'),
-    ('20002','AEROPORTO DE NINGUEM','NOONEKNOWS','IDK');
+    ('10001','AEROPORTO DE RECIFE','RECIFE','PE'),
+    ('30003','AEROPORTO DE LONDRINA', 'LONDRINA','PR'),
+    ('15030', 'AEROPORTO DE NATAL', 'NATAL','RN'),
+    ('20002','AEROPORTO DE MANAUS','MANAUS','AM');
 
 INSERT INTO voo VALUES
-    ('111116','MANUSENDS','QUARTA'),
-    ('222226','RENATRAVEL','SEGUNDA'),
-    ('333336','VITORRIVE','SEXTA'),
-    ('444446','NOONEGOES','DOMINGO');
+    ('111116','AZUL','QUARTA'),
+    ('222226','AVIANCA','SEGUNDA'),
+    ('333336','GOL','SEXTA'),
+    ('444446','LATAM','DOMINGO');
 
 INSERT INTO trecho_voo VALUES
     (1,'111116','10001','20002','11:11','00:00'),
@@ -98,16 +98,16 @@ INSERT INTO trecho_voo VALUES
     (4,'444446','30003','10001','00:44','00:00');
 
 INSERT INTO tipo_aeronave VALUES
-    ('Jatinho','30','MANUSENDS'),
-    ('Boing','120','RENATRAVEL'),
-    ('Foguete','4','VITORRIVE'),
-    ('Teleporte','1000','NOONEGOES');
+    ('Embraer','30','AZUL'),
+    ('Boeing','120','AVIANCA'),
+    ('Airbus','4','GOL'),
+    ('Cessna','1000','LATAM');
     
 INSERT INTO aeronave VALUES
-    ('11115','30','Jatinho'),
-    ('22225','120','Boing'),
-    ('33335','3','Foguete'),
-    ('44445','1000','Teleporte');
+    ('11115','30','Embraer'),
+    ('22225','120','Boeing'),
+    ('33335','3','Airbus'),
+    ('44445','1000','Cessna');
     
 INSERT INTO instancia_trecho VALUES
     ('111116',1,'2021/01/01','20','11115','10001','11:11','20002','00:00'),
@@ -122,16 +122,16 @@ INSERT INTO tarifa VALUES
     ('444446',14,0,'NA');
 
 INSERT INTO pode_pousar VALUES 
-    ('Jatinho','20002'),
-    ('Boing','15030'),
-    ('Foguete','30003'),
-    ('Teleporte','10001');
+    ('Embraer','20002'),
+    ('Boeing','15030'),
+    ('Airbus','30003'),
+    ('Cessna','10001');
 
 INSERT INTO reserva_assento VALUES 
-    ('111116',1,'2021/01/01','M01','Manussa','8190909090'),
-    ('222226',2,'2021/10/01','R02','Renato','8198080808'),
+    ('111116',1,'2021/01/01','M01','Manussa Santos','8190909090'),
+    ('222226',2,'2021/10/01','R02','Pedro Vicente','8198080808'),
     ('333336',3,'2021/02/09','J03','J. Victor','8197070707'),
-    ('444446',4,'2021/02/04','N04','No One','8196060606');
+    ('444446',4,'2021/02/04','N04','Carla Silva','8196060606');
 
 
 ALTER TABLE trecho_voo ADD FOREIGN KEY(Numero_voo) REFERENCES voo(Numero_voo) ON DELETE CASCADE ON UPDATE CASCADE;
