@@ -205,4 +205,5 @@ def tabela_instancia_trecho():
     #ligar a lista ao select
     lista_instancia_trecho.bind('<<ListboxSelect>>', selecionar_item)
 
-    populate_list()    
+    populate_list()  
+    instancia_trecho.mainloop()  

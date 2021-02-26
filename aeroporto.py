@@ -150,3 +150,4 @@ def tabela_aeroporto():
     lista_aeroporto.bind('<<ListboxSelect>>', selecionar_item)
 
     populate_list()
+    aeroporto.mainloop()

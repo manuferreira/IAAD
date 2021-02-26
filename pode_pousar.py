@@ -119,3 +119,4 @@ def tabela_pode_pousar():
     lista_pode_pousar.bind('<<ListboxSelect>>', selecionar_item)
 
     populate_list()
+    pode_pousar.mainloop()

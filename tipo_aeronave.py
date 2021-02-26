@@ -9,7 +9,7 @@ mydb = Database()
 # TABELA TIPO_AERONAVE
 def tabela_tipo_aeronave():
     tipo_aeronave = Tk()
-    tipo_aeronave.title("Voo")
+    tipo_aeronave.title("Tipos de aeronave")
     tipo_aeronave.geometry("850x350")
     style = ttk.Style(tipo_aeronave)
     tipo_aeronave.configure(bg='#FDFFFF')
@@ -124,3 +124,4 @@ def tabela_tipo_aeronave():
     lista_tipo_aeronave.bind('<<ListboxSelect>>', selecionar_item)
 
     populate_list()
+    tipo_aeronave.mainloop()

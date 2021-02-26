@@ -129,3 +129,4 @@ def tabela_aeronave():
     lista_aeronave.bind('<<ListboxSelect>>', selecionar_item)
 
     populate_list()
+    aeronave.mainloop()
