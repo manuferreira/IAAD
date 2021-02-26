@@ -29,14 +29,14 @@ CREATE TABLE trecho_voo(
 CREATE TABLE instancia_trecho(
 	Numero_voo VARCHAR(6) NOT NULL,
     Numero_trecho INT NOT NULL,
-    `Data` DATE NOT NULL,
+    Data DATE NOT NULL,
     Numero_assentos_disponiveis VARCHAR(45),
     Codigo_aeronave VARCHAR(5),
     Codigo_aeroporto_partida VARCHAR(5),
-    Codigo_aeroporto_chegada VARCHAR(5),
     Horario_partida VARCHAR(10),
+    Codigo_aeroporto_chegada VARCHAR(5),
     Horario_chegada VARCHAR(10),
-    PRIMARY KEY(Numero_voo, Numero_trecho, `Data`)
+    PRIMARY KEY(Numero_voo, Numero_trecho, Data)
 );
 
 CREATE TABLE tarifa(
@@ -70,11 +70,11 @@ CREATE TABLE aeronave(
 CREATE TABLE reserva_assento(
 	Numero_voo VARCHAR(6) NOT NULL,
     Numero_trecho INT NOT NULL,
-    `Data` DATE NOT NULL,
+    Data DATE NOT NULL,
     Numero_assento VARCHAR(10) NOT NULL,
     Nome_cliente VARCHAR(50),
     Telefone_cliente VARCHAR(10),
-    PRIMARY KEY(Numero_voo, Numero_trecho, `Data`, Numero_assento)
+    PRIMARY KEY(Numero_voo, Numero_trecho, Data, Numero_assento)
 );
 
 
@@ -146,7 +146,4 @@ ALTER TABLE tarifa ADD FOREIGN KEY(Numero_voo) REFERENCES voo(Numero_voo) ON DEL
 ALTER TABLE pode_pousar ADD FOREIGN KEY(Nome_tipo_aeronave) REFERENCES tipo_aeronave(Nome_tipo_aeronave) ON DELETE CASCADE ON UPDATE CASCADE;
 ALTER TABLE pode_pousar ADD FOREIGN KEY(Codigo_aeroporto) REFERENCES aeroporto(Codigo_aeroporto) ON DELETE CASCADE ON UPDATE CASCADE;
 ALTER TABLE aeronave ADD FOREIGN KEY(Tipo_aeronave) REFERENCES tipo_aeronave(Nome_tipo_aeronave) ON DELETE CASCADE ON UPDATE CASCADE;
-ALTER TABLE reserva_assento ADD FOREIGN KEY(Numero_voo, Numero_trecho, `Data`) REFERENCES instancia_trecho(Numero_voo, Numero_trecho, `Data`) ON DELETE CASCADE ON UPDATE CASCADE;
-
-
-
+ALTER TABLE reserva_assento ADD FOREIGN KEY(Numero_voo, Numero_trecho, Data) REFERENCES instancia_trecho(Numero_voo, Numero_trecho, Data) ON DELETE CASCADE ON UPDATE CASCADE;
