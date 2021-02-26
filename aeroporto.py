@@ -1,6 +1,8 @@
 from tkinter import *
 from tkinter import messagebox
 from db import *
+from tkinter.ttk import *
+from tkinter import ttk
 
 mydb = Database()
 
@@ -8,7 +10,11 @@ mydb = Database()
 def tabela_aeroporto():
     aeroporto = Tk()
     aeroporto.title("Aeroporto")
-    aeroporto.geometry("700x350")
+    aeroporto.geometry("760x350")
+    style = ttk.Style(aeroporto)
+    aeroporto.configure(bg='#FDFFFF')
+    style.configure('TButton', font=('calibri', 11),
+                    padding=5, width=20)
 
 
     def populate_list():
@@ -129,12 +135,12 @@ def tabela_aeroporto():
     estado_aeroporto_label.grid(row=3, column=0)
 
     #lista
-    lista_aeroporto = Listbox(aeroporto, height=8, width=50)
-    lista_aeroporto.grid(row=25, column=0, columnspan=3, rowspan=5, pady=20, padx=20)
+    lista_aeroporto = Listbox(aeroporto, height=8, width=60)
+    lista_aeroporto.grid(row=25, column=0, columnspan=2, rowspan=5, pady=10, padx=10)
 
     #criando scrollbar
     scrollbar = Scrollbar(aeroporto)
-    scrollbar.grid(row=25, column=3)
+    scrollbar.grid(row=25, column=2)
 
     #colocar a scroll na lista
     lista_aeroporto.configure(yscrollcommand=scrollbar.set)

@@ -2,6 +2,7 @@ from tkinter import *
 from tkinter import ttk
 from tkinter import messagebox
 from db import *
+from tkinter.ttk import *
 
 mydb = Database()
 
@@ -9,7 +10,11 @@ mydb = Database()
 def tabela_trecho():
     trecho = Tk()
     trecho.title("Trecho")
-    trecho.geometry("700x350")
+    trecho.geometry("760x350")
+    style = ttk.Style(trecho)
+    trecho.configure(bg='#FDFFFF')
+    style.configure('TButton', font=('calibri', 11),
+                    padding=5, width=20)
 
     def populate_list():
         lista_trecho.delete(0, END)
@@ -144,12 +149,12 @@ def tabela_trecho():
     horario_chegada_label.grid(row=5, column=0)
     
     #lista
-    lista_trecho = Listbox(trecho, height=8, width=50)
-    lista_trecho.grid(row=25, column=0, columnspan=7, rowspan=6, pady=20, padx=20)
+    lista_trecho = Listbox(trecho, height=8, width=60)
+    lista_trecho.grid(row=25, column=0, columnspan=2, rowspan=5, pady=10, padx=10)
 
     #criando scrollbar
     scrollbar = Scrollbar(trecho)
-    scrollbar.grid(row=25, column=8)
+    scrollbar.grid(row=25, column=2)
 
     #colocar a scroll na lista
     lista_trecho.configure(yscrollcommand=scrollbar.set)

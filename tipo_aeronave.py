@@ -1,6 +1,8 @@
 from tkinter import *
 from tkinter import messagebox
 from db import *
+from tkinter import ttk
+from tkinter.ttk import *
 
 mydb = Database()
 
@@ -8,7 +10,11 @@ mydb = Database()
 def tabela_tipo_aeronave():
     tipo_aeronave = Tk()
     tipo_aeronave.title("Voo")
-    tipo_aeronave.geometry("700x350")
+    tipo_aeronave.geometry("850x350")
+    style = ttk.Style(tipo_aeronave)
+    tipo_aeronave.configure(bg='#FDFFFF')
+    style.configure('TButton', font=('calibri', 11),
+                    padding=3, width=25)
 
     def populate_list():
         lista_tipo_aeronave.delete(0, END)
@@ -68,11 +74,11 @@ def tabela_tipo_aeronave():
     adicionar_tipo_aeronave.grid(row=8, column=0, padx=10, pady=10)
 
     remover_tipo_aeronave = Button(
-        tipo_aeronave, text="Remover um tipo de aeronave", command=remove_tipo_aeronave)
+        tipo_aeronave, text="Remover tipo de aeronave", command=remove_tipo_aeronave)
     remover_tipo_aeronave.grid(row=8, column=1, padx=10, pady=10)
 
     atualizar_tipo_aeronave = Button(
-        tipo_aeronave, text="Atualizar um tipo de aeronave", command=update_tipo_aeronave)
+        tipo_aeronave, text="Atualizar tipo de aeronave", command=update_tipo_aeronave)
     atualizar_tipo_aeronave.grid(row=8, column=2, padx=10, pady=10)
 
     limpar_campo_tipo_aeronave = Button(
@@ -102,13 +108,13 @@ def tabela_tipo_aeronave():
 
 
     #lista
-    lista_tipo_aeronave = Listbox(tipo_aeronave, height=8, width=50)
-    lista_tipo_aeronave.grid(row=25, column=0, columnspan=3,
-                      rowspan=5, pady=20, padx=20)
+    lista_tipo_aeronave = Listbox(tipo_aeronave, height=8, width=60)
+    lista_tipo_aeronave.grid(row=25, column=0, columnspan=2,
+                      rowspan=5, pady=10, padx=10)
 
     #criando scrollbar
     scrollbar = Scrollbar(tipo_aeronave)
-    scrollbar.grid(row=25, column=3)
+    scrollbar.grid(row=25, column=2)
 
     #colocar a scroll na lista
     lista_tipo_aeronave.configure(yscrollcommand=scrollbar.set)

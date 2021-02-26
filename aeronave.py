@@ -2,6 +2,7 @@ from tkinter import *
 from tkinter import ttk
 from tkinter import messagebox
 from db import *
+from tkinter.ttk import *
 
 mydb = Database()
 
@@ -9,7 +10,11 @@ mydb = Database()
 def tabela_aeronave():
     aeronave = Tk()
     aeronave.title("Aeronave")
-    aeronave.geometry("700x350")
+    aeronave.geometry("760x350")
+    style = ttk.Style(aeronave)
+    aeronave.configure(bg='#FDFFFF')
+    style.configure('TButton', font=('calibri', 11),
+                    padding=5, width=20)
 
 
     def populate_list():
@@ -109,7 +114,7 @@ def tabela_aeronave():
     tipo_aeronave_label.grid(row=2, column=0)
     
     #lista
-    lista_aeronave = Listbox(aeronave, height=8, width=50)
+    lista_aeronave = Listbox(aeronave, height=8, width=80)
     lista_aeronave.grid(row=25, column=0, columnspan=3, rowspan=5, pady=20, padx=20)
 
     #criando scrollbar

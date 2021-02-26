@@ -2,6 +2,7 @@ from tkinter import *
 from tkinter import messagebox
 from tkinter import ttk
 from db import *
+from tkinter.ttk import *
 
 mydb = Database()
 
@@ -9,7 +10,11 @@ mydb = Database()
 def tabela_tarifa():
     tarifa = Tk()
     tarifa.title("Tarifa")
-    tarifa.geometry("700x350")
+    tarifa.geometry("755x350")
+    style = ttk.Style(tarifa)
+    tarifa.configure(bg='#FDFFFF')
+    style.configure('TButton', font=('calibri', 11),
+                    padding=5, width=20)
 
 
     def populate_list():
@@ -125,13 +130,13 @@ def tabela_tarifa():
 
 
     #lista
-    lista_tarifa = Listbox(tarifa, height=8, width=50)
-    lista_tarifa.grid(row=25, column=0, columnspan=3,
-                         rowspan=5, pady=20, padx=20)
+    lista_tarifa = Listbox(tarifa, height=8, width=60)
+    lista_tarifa.grid(row=25, column=0, columnspan=2,
+                         rowspan=5, pady=10, padx=10)
 
     #criando scrollbar
     scrollbar = Scrollbar(tarifa)
-    scrollbar.grid(row=25, column=3)
+    scrollbar.grid(row=25, column=2)
 
     #colocar a scroll na lista
     lista_tarifa.configure(yscrollcommand=scrollbar.set)

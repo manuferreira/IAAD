@@ -2,6 +2,7 @@ from tkinter import *
 from tkinter import ttk
 from tkinter import messagebox
 from db import *
+from tkinter.ttk import *
 
 mydb = Database()
 
@@ -9,7 +10,11 @@ mydb = Database()
 def tabela_reserva_assento():
     reserva_assento = Tk()
     reserva_assento.title("Reserva de assentos")
-    reserva_assento.geometry("700x350")
+    reserva_assento.geometry("755x350")
+    style = ttk.Style(reserva_assento)
+    reserva_assento.configure(bg='#FDFFFF')
+    style.configure('TButton', font=('calibri', 11),
+                    padding=5, width=20)
 
     def populate_list():
         lista_reserva_assento.delete(0, END)
@@ -77,13 +82,13 @@ def tabela_reserva_assento():
      
 
      #Botões pra tela reserva_assento
-    adicionar_reserva_assento = Button(reserva_assento, text="Adicionar reserva_assento", command=add_reserva_assento)
+    adicionar_reserva_assento = Button(reserva_assento, text="Adicionar reserva", command=add_reserva_assento)
     adicionar_reserva_assento.grid(row=9, column=0, padx=10, pady=10)
 
-    remover_reserva_assento = Button(reserva_assento, text="Remover reserva_assento", command=remove_reserva_assento)
+    remover_reserva_assento = Button(reserva_assento, text="Remover reserva", command=remove_reserva_assento)
     remover_reserva_assento.grid(row=9, column=1, padx=10, pady=10)
 
-    atualizar_reserva_assento = Button(reserva_assento, text="Atualizar reserva_assento", command=update_reserva_assento)
+    atualizar_reserva_assento = Button(reserva_assento, text="Atualizar reserva", command=update_reserva_assento)
     atualizar_reserva_assento.grid(row=9, column=2, padx=10, pady=10)
 
     limpar_campo_reserva_assento = Button(reserva_assento, text="Limpar campos", command=limpar_reserva_assento)
@@ -149,12 +154,12 @@ def tabela_reserva_assento():
 
     
     #lista
-    lista_reserva_assento = Listbox(reserva_assento, height=8, width=50)
-    lista_reserva_assento.grid(row=25, column=0, columnspan=9, rowspan=6, pady=20, padx=20)
+    lista_reserva_assento = Listbox(reserva_assento, height=8, width=60)
+    lista_reserva_assento.grid(row=25, column=0, columnspan=2, rowspan=5, pady=10, padx=10)
 
     #criando scrollbar
     scrollbar = Scrollbar(reserva_assento)
-    scrollbar.grid(row=25, column=8)
+    scrollbar.grid(row=25, column=2)
 
     #colocar a scroll na lista
     lista_reserva_assento.configure(yscrollcommand=scrollbar.set)

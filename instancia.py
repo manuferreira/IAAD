@@ -2,6 +2,7 @@ from tkinter import *
 from tkinter import ttk
 from tkinter import messagebox
 from db import *
+from tkinter.ttk import *
 
 mydb = Database()
 
@@ -9,7 +10,11 @@ mydb = Database()
 def tabela_instancia_trecho():
     instancia_trecho = Tk()
     instancia_trecho.title("Instacia Trecho")
-    instancia_trecho.geometry("700x550")
+    instancia_trecho.geometry("760x400")
+    style = ttk.Style(instancia_trecho)
+    instancia_trecho.configure(bg='#FDFFFF')
+    style.configure('TButton', font=('calibri', 11),
+                    padding=5, width=20)
 
     def populate_list():
         lista_instancia_trecho.delete(0, END)
@@ -82,13 +87,13 @@ def tabela_instancia_trecho():
         add_horario_chegada.delete(0, END)
 
 
-    adicionar_instancia_trecho = Button(instancia_trecho, text="Adicionar instancia trecho", command=add_instancia_trecho)
+    adicionar_instancia_trecho = Button(instancia_trecho, text="Adicionar instância", command=add_instancia_trecho)
     adicionar_instancia_trecho.grid(row=9, column=0, padx=10, pady=10)
 
-    remover_instancia_trecho = Button(instancia_trecho, text="Remover instancia trecho", command=remove_instancia_trecho)
+    remover_instancia_trecho = Button(instancia_trecho, text="Remover instância", command=remove_instancia_trecho)
     remover_instancia_trecho.grid(row=9, column=1, padx=10, pady=10)
 
-    atualizar_instancia_trecho = Button(instancia_trecho, text="Atualizar instancia trecho", command=update_instancia_trecho)
+    atualizar_instancia_trecho = Button(instancia_trecho, text="Atualizar instância", command=update_instancia_trecho)
     atualizar_instancia_trecho.grid(row=9, column=2, padx=10, pady=10)
 
     limpar_campo_instancia_trecho = Button(instancia_trecho, text="Limpar campos", command=limpar_instancia_trecho)
@@ -186,12 +191,12 @@ def tabela_instancia_trecho():
     horario_chegada_label.grid(row=8, column=0)
     
     #lista
-    lista_instancia_trecho = Listbox(instancia_trecho, height=8, width=50)
-    lista_instancia_trecho.grid(row=25, column=0, columnspan=9, rowspan=6, pady=20, padx=20)
+    lista_instancia_trecho = Listbox(instancia_trecho, height=8, width=60)
+    lista_instancia_trecho.grid(row=25, column=0, columnspan=2, rowspan=5, pady=10, padx=10)
 
     #criando scrollbar
     scrollbar = Scrollbar(instancia_trecho)
-    scrollbar.grid(row=25, column=8)
+    scrollbar.grid(row=25, column=2)
 
     #colocar a scroll na lista
     lista_instancia_trecho.configure(yscrollcommand=scrollbar.set)

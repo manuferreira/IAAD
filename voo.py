@@ -1,6 +1,8 @@
 from tkinter import *
 from tkinter import messagebox
 from db import *
+from tkinter import ttk
+from tkinter.ttk import *
 
 mydb = Database()
 
@@ -8,7 +10,11 @@ mydb = Database()
 def tabela_voo():
     voo = Tk()
     voo.title("Voo")
-    voo.geometry("700x350")
+    voo.geometry("760x350")
+    style = ttk.Style(voo)
+    voo.configure(bg='#FDFFFF')
+    style.configure('TButton', font=('calibri', 11),
+                    padding=5, width=20)
 
 
     def populate_list():
@@ -100,12 +106,12 @@ def tabela_voo():
     dia_label.grid(row=2, column=0)
     
     #lista
-    lista_voo = Listbox(voo, height=8, width=50)
-    lista_voo.grid(row=25, column=0, columnspan=3, rowspan=5, pady=20, padx=20)
+    lista_voo = Listbox(voo, height=8, width=60)
+    lista_voo.grid(row=25, column=0, columnspan=2, rowspan=5, pady=10, padx=10)
 
     #criando scrollbar
     scrollbar = Scrollbar(voo)
-    scrollbar.grid(row=25, column=3)
+    scrollbar.grid(row=25, column=2)
 
     #colocar a scroll na lista
     lista_voo.configure(yscrollcommand=scrollbar.set)
