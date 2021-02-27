@@ -6,7 +6,7 @@ class Database:
     def __init__(self): #conexão com o banco de dados
         self.db = mysql.connector.connect(host = "localhost", 
                                             user = "root",
-                                            passwd = "manussa1",
+                                            passwd = " ",
                                             database = "companhia_aerea",)
         self.my_cursor = self.db.cursor()
 
